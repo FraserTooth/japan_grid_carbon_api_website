@@ -1,27 +1,41 @@
-import React, { useState } from "react";
-import { LineChart, Line } from "recharts";
+import React, { useState, useEffect } from "react";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+
+import { Box } from "@material-ui/core";
+import axios from "axios";
 
 export default function Graph() {
   // Declare a new state variable, which we'll call "count"  #
-  const [count, setCount] = useState(0);
+  const [dailyCarbon, setDailyCarbon] = useState([{}]);
 
-  const data = [
-    { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
-    { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
-    { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
-  ];
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.post(
+        "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity",
+        {
+          utility: "tepco",
+        }
+      );
+
+      const data: any[] = Object.keys(result.data).map((key) => {
+        return result.data[key];
+      });
+
+      console.log(data);
+
+      setDailyCarbon(data);
+    }
+    fetchData();
+  }, []);
 
   const renderLineChart = (
-    <LineChart width={400} height={400} data={data}>
-      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+    <LineChart width={600} height={300} data={dailyCarbon}>
+      <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
+      <CartesianGrid stroke="#ccc" />
+      <XAxis dataKey="index" />
+      <YAxis />
     </LineChart>
   );
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-      {renderLineChart}
-    </div>
-  );
+  return <Box>{renderLineChart}</Box>;
 }
