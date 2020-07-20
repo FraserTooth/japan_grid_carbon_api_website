@@ -43,8 +43,6 @@ function App() {
         return result.data[key];
       });
 
-      console.log(data);
-
       setDailyCarbon(data);
     }
     fetchData();
