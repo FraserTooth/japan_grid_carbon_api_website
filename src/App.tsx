@@ -54,6 +54,7 @@ function App() {
   const date = new Date();
   const hour = date.getHours();
 
+  const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
   const classes = useStyles();
 
   useEffect(() => {
@@ -73,6 +74,18 @@ function App() {
     }
     fetchData();
   }, []);
+
+  const carbonIntensityColor = (): string => {
+    const maxIntensity = 900;
+
+    const hueCalc = 100 - Math.floor((carbonIntensity / maxIntensity) * 100);
+
+    const hue = hueCalc > 0 ? hueCalc : 0;
+
+    console.log(`hsl(${hue},100%,100%)`);
+
+    return `hsl(${hue},100%,50%)`;
+  };
 
   return (
     <Container>
@@ -94,9 +107,9 @@ function App() {
             variant="h2"
             component="h1"
             gutterBottom
-            style={{ display: "inline-block" }}
+            style={{ display: "inline-block", color: carbonIntensityColor() }}
           >
-            {Math.round(dailyCarbon[hour]?.carbon_intensity) || 0}
+            {carbonIntensity}
           </Typography>
           <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
           <Graph data={dailyCarbon} />
