@@ -9,7 +9,6 @@ import {
 } from "recharts";
 
 import {
-  Box,
   CircularProgress,
   Card,
   Typography,

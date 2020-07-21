@@ -7,6 +7,7 @@ import {
   Container,
   Typography,
   Link,
+  Button,
   makeStyles,
 } from "@material-ui/core";
 
@@ -21,6 +22,12 @@ interface DailyCarbonData {
 const useStyles = makeStyles({
   copyright: {
     margin: "10px",
+  },
+  languageSelect: {
+    position: "fixed",
+    top: 0,
+    right: 0,
+    backgroundColor: "white",
   },
 });
 
@@ -47,6 +54,8 @@ function App() {
   const date = new Date();
   const hour = date.getHours();
 
+  const classes = useStyles();
+
   useEffect(() => {
     async function fetchData() {
       const result = await axios.post(
@@ -66,23 +75,34 @@ function App() {
   }, []);
 
   return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          {t("theCarbonIs") + t("probably") + ":"}
-        </Typography>
-        <Typography
-          variant="h2"
-          component="h1"
-          gutterBottom
-          style={{ display: "inline-block" }}
-        >
-          {Math.round(dailyCarbon[hour]?.carbon_intensity) || 0}
-        </Typography>
-        <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbon} />
-        <Copyright />
+    <Container>
+      <Box className={classes.languageSelect}>
+        <Button size="small" onClick={() => i18n.changeLanguage("ja")}>
+          ja
+        </Button>
+        |
+        <Button size="small" onClick={() => i18n.changeLanguage("en")}>
+          en
+        </Button>
       </Box>
+      <Container maxWidth="sm">
+        <Box my={4}>
+          <Typography variant="h5" component="h1" gutterBottom>
+            {t("theCarbonIs") + t("probably") + ":"}
+          </Typography>
+          <Typography
+            variant="h2"
+            component="h1"
+            gutterBottom
+            style={{ display: "inline-block" }}
+          >
+            {Math.round(dailyCarbon[hour]?.carbon_intensity) || 0}
+          </Typography>
+          <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
+          <Graph data={dailyCarbon} />
+          <Copyright />
+        </Box>
+      </Container>
     </Container>
   );
 }
