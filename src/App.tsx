@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 
 import Graph from "./components/Graph";
+import { useTranslation } from "react-i18next";
 
 interface DailyCarbonData {
   [key: string]: number;
@@ -42,6 +43,7 @@ function Copyright() {
 function App() {
   const defaultDailyCarbon: DailyCarbonData[] = [{ carbon_intensity: 0 }];
   const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
+  const { t, i18n } = useTranslation();
   const date = new Date();
   const hour = date.getHours();
 
@@ -66,8 +68,8 @@ function App() {
   return (
     <Container maxWidth="sm">
       <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          The Carbon Intensity in Tokyo right now is (probably):
+        <Typography variant="h5" component="h1" gutterBottom>
+          {t("theCarbonIs") + t("probably") + ":"}
         </Typography>
         <Typography
           variant="h2"
