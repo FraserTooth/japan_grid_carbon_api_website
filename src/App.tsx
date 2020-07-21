@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 
-import { Box, Container, Typography, Link } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  Link,
+  makeStyles,
+} from "@material-ui/core";
 
 import Graph from "./components/Graph";
 
@@ -11,16 +17,25 @@ interface DailyCarbonData {
   carbon_intensity: number;
 }
 
+const useStyles = makeStyles({
+  copyright: {
+    margin: "10px",
+  },
+});
+
 function Copyright() {
+  const classes = useStyles();
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://frasertooth.dev/">
-        Fraser Tooth
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <Container className={classes.copyright}>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Copyright © "}
+        <Link color="inherit" href="https://frasertooth.dev/">
+          Fraser Tooth
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    </Container>
   );
 }
 
