@@ -51,7 +51,7 @@ export default function Graph(props: any) {
     <LineChart width={500} height={300} data={props.data}>
       <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="index" />
+      <XAxis dataKey="hour" />
       <YAxis />
       <Tooltip content={<CustomTooltip />} />
     </LineChart>

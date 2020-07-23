@@ -53,7 +53,7 @@ function App() {
   const { t, i18n } = useTranslation();
   const date = new Date();
   const hour = date.getHours();
-  const month = date.getMonth();
+  //const month = date.getMonth();
 
   const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
   const classes = useStyles();
@@ -67,7 +67,7 @@ function App() {
         }
       );
 
-      const data: any[] = result.data["data"];
+      const data: any[] = result.data["data"]["carbon_intensity_by_hour"];
 
       setDailyCarbon(data);
     }
