@@ -1,0 +1,74 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import Graph from "./Graph";
+import { useTranslation } from "react-i18next";
+
+import { Box, Container, Typography } from "@material-ui/core";
+
+interface DailyCarbonData {
+  [key: string]: number;
+  carbon_intensity: number;
+}
+
+const carbonIntensityColor = (carbonIntensity: number): string => {
+  const maxIntensity = 900;
+
+  const hueCalc = 100 - Math.floor((carbonIntensity / maxIntensity) * 100);
+
+  const hue = hueCalc > 0 ? hueCalc : 0;
+
+  console.log(`hsl(${hue},100%,100%)`);
+
+  return `hsl(${hue},100%,50%)`;
+};
+
+export default function Main() {
+  const defaultDailyCarbon: DailyCarbonData[] = [{ carbon_intensity: 0 }];
+  const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
+  const { t, i18n } = useTranslation();
+  const date = new Date();
+  const hour = date.getHours();
+  //const month = date.getMonth();
+
+  const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.post(
+        "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity",
+        {
+          utility: "tepco",
+        }
+      );
+
+      const data: any[] = result.data["data"]["carbon_intensity_by_hour"];
+
+      setDailyCarbon(data);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <Container maxWidth="sm">
+      <Box my={4}>
+        <Typography variant="h5" component="h1" gutterBottom>
+          {t("theCarbonIs") + t("probably") + ":"}
+        </Typography>
+        <Typography
+          variant="h2"
+          component="h1"
+          gutterBottom
+          style={{
+            display: "inline-block",
+            color: carbonIntensityColor(carbonIntensity),
+          }}
+        >
+          {carbonIntensity}
+        </Typography>
+        <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
+        <Graph data={dailyCarbon} />
+      </Box>
+    </Container>
+  );
+}
