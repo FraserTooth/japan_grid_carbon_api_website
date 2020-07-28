@@ -12,6 +12,10 @@ interface DailyCarbonData {
   carbon_intensity: number;
 }
 
+interface DailyCarbonDataByMonth {
+  [key: number]: DailyCarbonData[];
+}
+
 const carbonIntensityColor = (carbonIntensity: number): string => {
   const maxIntensity = 900;
 
@@ -41,7 +45,7 @@ const retriveDailyIntensity = async (
 };
 
 const retriveDailyIntensityByMonth = async (
-  setData: (data: DailyCarbonData[]) => void
+  setData: (data: DailyCarbonDataByMonth) => void
 ): Promise<void> => {
   const result = await axios.post(
     "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity_by_month",
@@ -50,7 +54,7 @@ const retriveDailyIntensityByMonth = async (
     }
   );
 
-  const data: DailyCarbonData[] =
+  const data: DailyCarbonDataByMonth =
     result.data["data"]["carbon_intensity_by_month"];
 
   setData(data);
@@ -59,7 +63,7 @@ const retriveDailyIntensityByMonth = async (
 export default function Main() {
   const { t } = useTranslation();
   const date = new Date();
-  const hour = date.getHours();
+  const hourIndex = date.getHours();
   const month = date.getMonth();
 
   const defaultDailyCarbon: DailyCarbonData[] = [
@@ -67,14 +71,15 @@ export default function Main() {
   ];
   const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
 
-  const defaultDailyCarbonMonth: DailyCarbonData[] = [
-    { carbon_intensity: 0, hour: 0 },
+  const defaultDailyCarbonMonth: DailyCarbonDataByMonth = [
+    [{ carbon_intensity: 0, hour: 0 }],
   ];
   const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
     defaultDailyCarbonMonth
   );
 
-  const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
+  const carbonIntensity =
+    Math.round(dailyCarbonByMonth[month]?.[hourIndex]?.carbon_intensity) || 0;
 
   useEffect(() => {
     retriveDailyIntensity(setDailyCarbon);
