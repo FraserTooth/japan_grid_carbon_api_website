@@ -23,6 +23,22 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
   return `hsl(${hue},100%,50%)`;
 };
 
+const retriveDailyIntensity = async (
+  setData: (data: DailyCarbonData[]) => void
+): Promise<void> => {
+  const result = await axios.post(
+    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity",
+    {
+      utility: "tepco",
+    }
+  );
+
+  const data: DailyCarbonData[] =
+    result.data["data"]["carbon_intensity_by_hour"];
+
+  setData(data);
+};
+
 export default function Main() {
   const defaultDailyCarbon: DailyCarbonData[] = [{ carbon_intensity: 0 }];
   const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
@@ -34,19 +50,7 @@ export default function Main() {
   const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await axios.post(
-        "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity",
-        {
-          utility: "tepco",
-        }
-      );
-
-      const data: any[] = result.data["data"]["carbon_intensity_by_hour"];
-
-      setDailyCarbon(data);
-    }
-    fetchData();
+    retriveDailyIntensity(setDailyCarbon);
   }, []);
 
   return (
