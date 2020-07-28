@@ -1,4 +1,18 @@
 {
   "theCarbonIs": "The C02 emitted from Electricity Generation in Tokyo right now is ",
-  "probably": "(probably)"
+  "probably": "(probably)",
+  "month1": "January",
+  "month2": "February",
+  "month3": "March",
+  "month4": "April",
+  "month5": "May",
+  "month6": "June",
+  "month7": "July",
+  "month8": "August",
+  "month9": "September",
+  "month10": "October",
+  "month11": "November",
+  "month12": "December",
+  "carbonGraphTitle1": "Carbon Intensity over a given day in ",
+  "carbonGraphTitle2": ", averaged from the last 4 years of data."
 }

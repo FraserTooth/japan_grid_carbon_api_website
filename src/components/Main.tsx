@@ -8,6 +8,7 @@ import { Box, Container, Typography } from "@material-ui/core";
 
 interface DailyCarbonData {
   [key: string]: number;
+  hour: number;
   carbon_intensity: number;
 }
 
@@ -39,18 +40,45 @@ const retriveDailyIntensity = async (
   setData(data);
 };
 
+const retriveDailyIntensityByMonth = async (
+  setData: (data: DailyCarbonData[]) => void
+): Promise<void> => {
+  const result = await axios.post(
+    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity_by_month",
+    {
+      utility: "tepco",
+    }
+  );
+
+  const data: DailyCarbonData[] =
+    result.data["data"]["carbon_intensity_by_month"];
+
+  setData(data);
+};
+
 export default function Main() {
-  const defaultDailyCarbon: DailyCarbonData[] = [{ carbon_intensity: 0 }];
-  const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
   const { t } = useTranslation();
   const date = new Date();
   const hour = date.getHours();
-  //const month = date.getMonth();
+  const month = date.getMonth();
+
+  const defaultDailyCarbon: DailyCarbonData[] = [
+    { carbon_intensity: 0, hour: 0 },
+  ];
+  const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
+
+  const defaultDailyCarbonMonth: DailyCarbonData[] = [
+    { carbon_intensity: 0, hour: 0 },
+  ];
+  const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
+    defaultDailyCarbonMonth
+  );
 
   const carbonIntensity = Math.round(dailyCarbon[hour]?.carbon_intensity) || 0;
 
   useEffect(() => {
     retriveDailyIntensity(setDailyCarbon);
+    retriveDailyIntensityByMonth(setDailyCarbonByMonth);
   }, []);
 
   return (
@@ -71,7 +99,7 @@ export default function Main() {
           {carbonIntensity}
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbon} />
+        <Graph data={dailyCarbonByMonth[month] ?? defaultDailyCarbon} />
       </Box>
     </Container>
   );

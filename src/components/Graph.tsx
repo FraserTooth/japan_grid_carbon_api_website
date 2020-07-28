@@ -15,6 +15,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
+import { useTranslation } from "react-i18next";
+
 const useStyles = makeStyles({
   tooltip: {
     padding: "2px",
@@ -46,7 +48,10 @@ function CustomTooltip({ payload, label, active }: any) {
 }
 
 export default function Graph(props: any) {
+  const { t } = useTranslation();
   const classes = useStyles();
+  const date = new Date();
+  const month = date.getMonth();
   const renderLineChart = (
     <LineChart width={500} height={300} data={props.data}>
       <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
@@ -60,8 +65,7 @@ export default function Graph(props: any) {
   return (
     <Card className={classes.graphCard}>
       <Typography variant="h6">
-        Carbon Intensity over a given day, averaged from the last 4 years of
-        data
+        {t("carbonGraphTitle1") + t(`month${month}`) + t("carbonGraphTitle2")}
       </Typography>
       {props.data.length > 1 ? renderLineChart : <CircularProgress />}
     </Card>
