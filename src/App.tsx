@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Main from "./components/Main";
-import axios from "axios";
 
 import {
   Box,
@@ -44,7 +43,7 @@ function Copyright() {
 
 function App() {
   const classes = useStyles();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <Container>
       <Box className={classes.languageSelect}>

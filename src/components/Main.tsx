@@ -42,7 +42,7 @@ const retriveDailyIntensity = async (
 export default function Main() {
   const defaultDailyCarbon: DailyCarbonData[] = [{ carbon_intensity: 0 }];
   const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const date = new Date();
   const hour = date.getHours();
   //const month = date.getMonth();
