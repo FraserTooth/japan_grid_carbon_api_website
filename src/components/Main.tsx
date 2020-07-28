@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Graph from "./Graph";
+import Explanation from "./Explanation";
 import { useTranslation } from "react-i18next";
 
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Container, Typography, Divider } from "@material-ui/core";
 
 interface DailyCarbonData {
   [key: string]: number;
@@ -90,7 +91,7 @@ export default function Main() {
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="h5" component="h1" gutterBottom>
-          {t("theCarbonIs") + t("probably") + ":"}
+          {t("theCarbonIs") + "(" + t("probably") + "):"}
         </Typography>
         <Typography
           variant="h2"
@@ -105,6 +106,8 @@ export default function Main() {
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
         <Graph data={dailyCarbonByMonth[month] ?? defaultDailyCarbon} />
+        <Divider variant="middle" />
+        <Explanation />
       </Box>
     </Container>
   );
