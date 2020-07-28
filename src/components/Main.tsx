@@ -65,7 +65,7 @@ export default function Main() {
   const { t } = useTranslation();
   const date = new Date();
   const hourIndex = date.getHours();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
 
   const defaultDailyCarbon: DailyCarbonData[] = [
     { carbon_intensity: 0, hour: 0 },

@@ -51,7 +51,7 @@ export default function Graph(props: any) {
   const { t } = useTranslation();
   const classes = useStyles();
   const date = new Date();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const renderLineChart = (
     <LineChart width={500} height={300} data={props.data}>
       <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
