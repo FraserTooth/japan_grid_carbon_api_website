@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import Graph from "./Graph";
 import Explanation from "./Explanation";
@@ -32,15 +31,13 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
 const retriveDailyIntensity = async (
   setData: (data: DailyCarbonData[]) => void
 ): Promise<void> => {
-  const result = await axios.post(
-    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity",
-    {
-      utility: "tepco",
-    }
+  const response = await fetch(
+    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/tepco"
   );
 
-  const data: DailyCarbonData[] =
-    result.data["data"]["carbon_intensity_by_hour"];
+  const result = await response.json();
+
+  const data: DailyCarbonData[] = result["data"]["carbon_intensity_by_hour"];
 
   setData(data);
 };
@@ -48,15 +45,14 @@ const retriveDailyIntensity = async (
 const retriveDailyIntensityByMonth = async (
   setData: (data: DailyCarbonDataByMonth) => void
 ): Promise<void> => {
-  const result = await axios.post(
-    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/daily_carbon_intensity_by_month",
-    {
-      utility: "tepco",
-    }
+  const response = await fetch(
+    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/tepco/month"
   );
 
+  const result = await response.json();
+
   const data: DailyCarbonDataByMonth =
-    result.data["data"]["carbon_intensity_by_month"];
+    result["data"]["carbon_intensity_by_month"];
 
   setData(data);
 };
