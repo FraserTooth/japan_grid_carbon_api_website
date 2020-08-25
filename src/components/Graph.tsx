@@ -65,7 +65,7 @@ export default function Graph(props: any) {
   return (
     <Card className={classes.graphCard}>
       <Typography variant="h6">
-        {t("carbonGraphTitle1") + t(`month${month}`) + t("carbonGraphTitle2")}
+        {t("carbonGraphTitle", { month: t(`months.${month - 1}`) })}
       </Typography>
       {props.data.length > 1 ? renderLineChart : <CircularProgress />}
     </Card>
