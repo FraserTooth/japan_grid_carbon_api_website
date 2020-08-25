@@ -1,5 +1,5 @@
 {
-  "theCarbonIs": "The C02 emitted from Electricity Generation in Tokyo right now is ",
+  "theCarbonIs": "The C02 emitted from Electricity Generation supplied by {{utility}} right now is ",
   "probably": "probably",
   "months": [
     "January",
@@ -15,6 +15,11 @@
     "November",
     "December"
   ],
+  "utilities": {
+    "tepco": "TEPCO",
+    "kepco": "KEPCO",
+    "tohokuden": "Tohokuden"
+  },
   "carbonGraphTitle": "Carbon Intensity over a given day in {{month}}, averaged from the last 4 years of data.",
   "probablyExplanation1": "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
   "probablyExplanation2": "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity."

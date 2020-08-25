@@ -87,7 +87,10 @@ export default function Main() {
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="h5" component="h1" gutterBottom>
-          {t("theCarbonIs") + "(" + t("probably") + "):"}
+          {t("theCarbonIs", { utility: t(`utilities.tepco`) }) +
+            "(" +
+            t("probably") +
+            "):"}
         </Typography>
         <Typography
           variant="h2"

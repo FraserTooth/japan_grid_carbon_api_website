@@ -1,5 +1,5 @@
 {
-  "theCarbonIs": "今は東京に発電C02の発生は",
+  "theCarbonIs": "今は{{utility}}で発電C02の発生は",
   "probably": "たぶん",
   "months": [
     "1月",
@@ -15,6 +15,11 @@
     "11月",
     "12月"
   ],
+  "utilities": {
+    "tepco": "東京電力",
+    "kepco": "関西電力",
+    "tohokuden": "東北電力"
+  },
   "carbonGraphTitle": "{{month}}の日のカーボンインテンシティ、4年間のアベレージです。",
   "probablyExplanation1": "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
   "probablyExplanation2": "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity."
