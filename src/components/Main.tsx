@@ -29,10 +29,11 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
 };
 
 const retriveDailyIntensity = async (
-  setData: (data: DailyCarbonData[]) => void
+  setData: (data: DailyCarbonData[]) => void,
+  utility: string
 ): Promise<void> => {
   const response = await fetch(
-    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/tepco"
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}`
   );
 
   const result = await response.json();
@@ -43,10 +44,11 @@ const retriveDailyIntensity = async (
 };
 
 const retriveDailyIntensityByMonth = async (
-  setData: (data: DailyCarbonDataByMonth) => void
+  setData: (data: DailyCarbonDataByMonth) => void,
+  utility: string
 ): Promise<void> => {
   const response = await fetch(
-    "https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/tepco/month"
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}/month`
   );
 
   const result = await response.json();
@@ -79,8 +81,8 @@ export default function Main() {
     Math.round(dailyCarbonByMonth[month]?.[hourIndex]?.carbon_intensity) || 0;
 
   useEffect(() => {
-    retriveDailyIntensity(setDailyCarbon);
-    retriveDailyIntensityByMonth(setDailyCarbonByMonth);
+    retriveDailyIntensity(setDailyCarbon, "tepco");
+    retriveDailyIntensityByMonth(setDailyCarbonByMonth, "tepco");
   }, []);
 
   return (
