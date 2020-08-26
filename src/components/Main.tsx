@@ -6,6 +6,8 @@ import Title from "./Title";
 
 import { Box, Container, Typography, Divider } from "@material-ui/core";
 
+const supportedUtilities = ["tepco", "kepco", "tohokuden"];
+
 interface DailyCarbonData {
   [key: string]: number;
   hour: number;
@@ -76,23 +78,24 @@ export default function Main() {
   const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
     defaultDailyCarbonMonth
   );
+  const [utility, setUtility] = useState(supportedUtilities[0]);
 
   const carbonIntensity =
     Math.round(dailyCarbonByMonth[month]?.[hourIndex]?.carbon_intensity) || 0;
 
-  const updateUtility = (utility: string) => {
-    retriveDailyIntensityByMonth(setDailyCarbonByMonth, utility);
-  };
-
   useEffect(() => {
     // retriveDailyIntensity(setDailyCarbon, "tepco");
-    updateUtility("tepco");
-  }, []);
+    retriveDailyIntensityByMonth(setDailyCarbonByMonth, utility);
+  }, [utility]);
 
   return (
     <Container maxWidth="sm">
       <Box my={4}>
-        <Title updateUtility={updateUtility} />
+        <Title
+          updateUtility={setUtility}
+          utility={utility}
+          supportedUtilities={supportedUtilities}
+        />
         <Typography
           variant="h2"
           component="h1"

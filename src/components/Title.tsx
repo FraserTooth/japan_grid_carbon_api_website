@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Title(props: any) {
   const { t } = useTranslation();
 
-  const supportedUtilities = ["tepco", "kepco", "tohokuden"];
+  const supportedUtilities = props.supportedUtilities;
 
   const [utilityChoice, setUtilityChoice] = useState(0);
 
@@ -41,9 +41,9 @@ export default function Title(props: any) {
 
   const utilityMenu = (
     <NativeSelect value={utilityChoice} onChange={handleChange}>
-      <option value={0}>{t(`utilities.${supportedUtilities[0]}`)}</option>
-      <option value={1}>{t(`utilities.${supportedUtilities[1]}`)}</option>
-      <option value={2}>{t(`utilities.${supportedUtilities[2]}`)}</option>
+      {supportedUtilities.map((utility: string, index: number) => {
+        return <option value={index}>{t(`utilities.${utility}`)}</option>;
+      })}
     </NativeSelect>
   );
 
