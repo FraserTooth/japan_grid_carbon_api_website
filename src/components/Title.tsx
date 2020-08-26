@@ -4,7 +4,6 @@ import { useTranslation, Trans } from "react-i18next";
 
 import {
   Typography,
-  FormControl,
   NativeSelect,
   makeStyles,
   createStyles,
@@ -40,20 +39,11 @@ export default function Title() {
   };
 
   const utilityMenu = (
-    <FormControl className={classes.formControl}>
-      <NativeSelect
-        value={utilityChoice}
-        onChange={handleChange}
-        inputProps={{
-          name: "age",
-          id: "age-native-helper",
-        }}
-      >
-        <option value={0}>{t(`utilities.${supportedUtilities[0]}`)}</option>
-        <option value={1}>{t(`utilities.${supportedUtilities[1]}`)}</option>
-        <option value={2}>{t(`utilities.${supportedUtilities[2]}`)}</option>
-      </NativeSelect>
-    </FormControl>
+    <NativeSelect value={utilityChoice} onChange={handleChange}>
+      <option value={0}>{t(`utilities.${supportedUtilities[0]}`)}</option>
+      <option value={1}>{t(`utilities.${supportedUtilities[1]}`)}</option>
+      <option value={2}>{t(`utilities.${supportedUtilities[2]}`)}</option>
+    </NativeSelect>
   );
 
   return (
