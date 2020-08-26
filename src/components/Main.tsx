@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Graph from "./Graph";
 import Explanation from "./Explanation";
+import Title from "./Title";
 import { useTranslation } from "react-i18next";
 
 import { Box, Container, Typography, Divider } from "@material-ui/core";
@@ -88,12 +89,7 @@ export default function Main() {
   return (
     <Container maxWidth="sm">
       <Box my={4}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          {t("theCarbonIs", { utility: t(`utilities.tepco`) }) +
-            "(" +
-            t("probably") +
-            "):"}
-        </Typography>
+        <Title />
         <Typography
           variant="h2"
           component="h1"
