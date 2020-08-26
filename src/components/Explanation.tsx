@@ -18,10 +18,10 @@ export default function Explanation() {
   return (
     <Box className={classes.explanation}>
       <Typography variant="h5" className={classes.explanationTitle}>
-        {t("probably") + "?"}
+        {t("explanation.probablySection.probably") + "?"}
       </Typography>
       <Typography>
-        {t("probablyExplanation1") + t("probablyExplanation2")}
+        {t("explanation.probablySection.paragraph", { joinArrays: "\n" })}
       </Typography>
     </Box>
   );

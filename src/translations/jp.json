@@ -1,6 +1,5 @@
 {
   "theCarbonIs": "今は <utilityMenu></utilityMenu> で発電C02の発生は",
-  "probably": "たぶん",
   "months": [
     "1月",
     "2月",
@@ -21,6 +20,15 @@
     "tohokuden": "東北電力"
   },
   "carbonGraphTitle": "{{month}}の日のカーボンインテンシティ、4年間のアベレージです。",
-  "probablyExplanation1": "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
-  "probablyExplanation2": "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity."
+  "explanation": {
+    "probablySection": {
+      "probably": "たぶん",
+      "paragraph": [
+        "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
+        "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity.",
+        "Since live energy market data, by generation source, is not currently available in Japan, we have to make these predictions.",
+        "As this project develops, we hope to improve our predictions, but more than this, we hope that Japanese energy utilties will make available the required data in real time so that this number is not a prediction, but fact."
+      ]
+    }
+  }
 }
