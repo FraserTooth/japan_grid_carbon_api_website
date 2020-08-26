@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Title() {
+export default function Title(props: any) {
   const { t } = useTranslation();
 
   const supportedUtilities = ["tepco", "kepco", "tohokuden"];
@@ -36,6 +36,7 @@ export default function Title() {
   ) => {
     const choice = parseInt(event.target.value);
     setUtilityChoice(choice);
+    props.updateUtility(supportedUtilities[choice]);
   };
 
   const utilityMenu = (
