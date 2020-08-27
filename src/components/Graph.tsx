@@ -13,6 +13,7 @@ import {
   Card,
   Typography,
   makeStyles,
+  Box,
 } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
@@ -26,20 +27,30 @@ const useStyles = makeStyles({
   },
 });
 
+const timeFormatter = (tick: number) => {
+  if (tick === 24) return "00:00";
+  if (tick < 10) return `0${tick}:00`;
+  return `${tick}:00`;
+};
+
 function CustomTooltip({ payload, label, active }: any) {
   const classes = useStyles();
   if (active) {
+    const dp = payload[0].payload;
     return (
       <Card className={classes.tooltip}>
-        <Typography
-          variant="h6"
-          component="h1"
-          gutterBottom
-          style={{ display: "inline-block" }}
-        >
-          {Math.round(payload[0].value)}
-        </Typography>
-        gC02/kWh
+        <Box style={{ paddingLeft: "5px", paddingRight: "5px" }}>
+          <Typography>{timeFormatter(dp.hour)}</Typography>
+          <Typography
+            variant="h6"
+            component="h1"
+            gutterBottom
+            style={{ display: "inline-block" }}
+          >
+            {Math.round(dp.carbon_intensity)}
+          </Typography>
+          gC02/kWh
+        </Box>
       </Card>
     );
   }
@@ -52,10 +63,6 @@ export default function Graph(props: any) {
   const classes = useStyles();
   const now = new Date();
   const month = now.getMonth() + 1;
-
-  const timeFormatter = (tick: number) => {
-    return `${tick}:00`;
-  };
 
   // Add wrap around for the graph
   const adjustedData = JSON.parse(JSON.stringify(props.data));
