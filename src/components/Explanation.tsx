@@ -18,6 +18,10 @@ const useStyles = makeStyles({
   explanationTitle: {
     "text-transform": "capitalize",
   },
+  section: {
+    marginTop: "20px",
+    marginBottom: "20px",
+  },
 });
 
 export default function Explanation() {
@@ -33,7 +37,7 @@ export default function Explanation() {
 
   return (
     <Box className={classes.explanation}>
-      <Box>
+      <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.probablySection.title")}
         </Typography>
@@ -42,9 +46,7 @@ export default function Explanation() {
         </Typography>
       </Box>
 
-      <Divider />
-
-      <Box>
+      <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.howSection.title")}
         </Typography>
@@ -61,9 +63,7 @@ export default function Explanation() {
         </Typography>
       </Box>
 
-      <Divider />
-
-      <Box>
+      <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.helpSection.title")}
         </Typography>
