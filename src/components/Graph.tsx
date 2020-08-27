@@ -80,7 +80,9 @@ export default function Graph(props: any) {
         type="number"
         interval="preserveStartEnd"
       />
-      <YAxis />
+      <YAxis
+        label={{ value: "gC02/kWh", angle: -90, position: "insideLeft" }}
+      />
       <Tooltip content={<CustomTooltip />} />
     </LineChart>
   );
