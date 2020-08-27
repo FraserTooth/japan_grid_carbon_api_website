@@ -1,4 +1,5 @@
 import React from "react";
+import ReactGA from "react-ga";
 import { useTranslation, Trans } from "react-i18next";
 
 import {

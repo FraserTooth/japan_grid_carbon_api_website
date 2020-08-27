@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import ReactGA from "react-ga";
 import Graph from "./Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
@@ -68,6 +68,10 @@ const retriveDailyIntensityByMonth = async (
   setData(data);
 };
 
+export const GApageView = (page: string) => {
+  ReactGA.pageview(page);
+};
+
 export default function Main() {
   const date = new Date();
   const hourIndex = date.getHours();
@@ -87,6 +91,10 @@ export default function Main() {
     // retriveDailyIntensity(setDailyCarbon, "tepco");
     retriveDailyIntensityByMonth(setDailyCarbonByMonth, utility);
   }, [utility]);
+
+  useEffect(() => {
+    GApageView("main");
+  }, []);
 
   return (
     <Container maxWidth="sm">

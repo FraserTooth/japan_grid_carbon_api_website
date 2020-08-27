@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import ReactGA from "react-ga";
 import "./App.css";
 import Main from "./components/Main";
 
@@ -25,6 +26,10 @@ const useStyles = makeStyles({
   },
 });
 
+export const initGA = () => {
+  ReactGA.initialize("UA-48407359-4"); // put your tracking id here
+};
+
 function Copyright() {
   const classes = useStyles();
   return (
@@ -44,6 +49,9 @@ function Copyright() {
 function App() {
   const classes = useStyles();
   const { i18n } = useTranslation();
+  useEffect(() => {
+    initGA();
+  }, []);
   return (
     <Container>
       <Box className={classes.languageSelect}>
