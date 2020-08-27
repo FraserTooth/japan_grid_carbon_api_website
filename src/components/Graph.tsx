@@ -50,13 +50,29 @@ function CustomTooltip({ payload, label, active }: any) {
 export default function Graph(props: any) {
   const { t } = useTranslation();
   const classes = useStyles();
-  const date = new Date();
-  const month = date.getMonth() + 1;
+  const now = new Date();
+  const month = now.getMonth() + 1;
+
+  const timeFormatter = (tick: number) => {
+    return `${tick}:00`;
+  };
+
+  // Add wrap around for the graph
+  const adjustedData = JSON.parse(JSON.stringify(props.data));
+  const wrapAround = JSON.parse(JSON.stringify(adjustedData[0]));
+  wrapAround.hour = 24;
+  adjustedData.push(wrapAround);
+
   const renderLineChart = (
-    <LineChart width={500} height={300} data={props.data}>
+    <LineChart width={500} height={300} data={adjustedData}>
       <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="hour" />
+      <XAxis
+        dataKey="hour"
+        tickFormatter={timeFormatter}
+        type="number"
+        interval="preserveStartEnd"
+      />
       <YAxis />
       <Tooltip content={<CustomTooltip />} />
     </LineChart>
