@@ -35,24 +35,27 @@ export default function Explanation() {
     <Link href={url} onClick={preventDefault}></Link>
   );
 
+  const buildParagraph = (key: string): any => {
+    const sectionArray: any = t(key, {
+      returnObjects: true,
+    });
+    return sectionArray.map((line: string) => <Typography>{line}</Typography>);
+  };
+
   return (
     <Box className={classes.explanation}>
       <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.probablySection.title")}
         </Typography>
-        <Typography>
-          {t("explanation.probablySection.paragraph", { joinArrays: "\n" })}
-        </Typography>
+        {buildParagraph("explanation.probablySection.paragraph")}
       </Box>
 
       <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.howSection.title")}
         </Typography>
-        <Typography>
-          {t("explanation.howSection.paragraph", { joinArrays: "\n" })}
-        </Typography>
+        {buildParagraph("explanation.howSection.paragraph")}
         <Typography>
           <Trans
             i18nKey="explanation.howSection.carbonIntensityLink"
