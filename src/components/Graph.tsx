@@ -99,7 +99,10 @@ export default function Graph(props: any) {
   return (
     <Card className={classes.graphCard}>
       <Typography variant="h6" align="center">
-        {t("carbonGraphTitle", { month: t(`months.${month - 1}`) })}
+        {t("carbonGraphTitle", {
+          month: t(`months.${month - 1}`),
+          weekday: t(`weekdays.${weekdayInAPI - 1}`),
+        })}
       </Typography>
       <br />
       {renderLineChart}
