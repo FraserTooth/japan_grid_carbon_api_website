@@ -14,12 +14,21 @@
     "November",
     "December"
   ],
+  "days": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ],
   "utilities": {
     "tepco": "TEPCO",
     "kepco": "KEPCO",
     "tohokuden": "Tohokuden"
   },
-  "carbonGraphTitle": "Carbon Intensity over a given day in {{month}}, averaged from the last 4 years of data.",
+  "carbonGraphTitle": "Carbon Intensity over a given {{weekday}} in {{month}}, averaged from the last 4 years of data.",
   "explanation": {
     "probablySection": {
       "title": "Probably?",

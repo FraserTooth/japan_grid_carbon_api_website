@@ -14,12 +14,21 @@
     "11月",
     "12月"
   ],
+  "days": [
+    "月曜日",
+    "火曜日",
+    "水曜日",
+    "木曜日",
+    "金曜日",
+    "土曜日",
+    "日曜日"
+  ],
   "utilities": {
     "tepco": "東京電力",
     "kepco": "関西電力",
     "tohokuden": "東北電力"
   },
-  "carbonGraphTitle": "{{month}}の日のカーボンインテンシティ、4年間のアベレージです。",
+  "carbonGraphTitle": "{{month}}の{{weekday}}のカーボンインテンシティ、4年間のアベレージです。",
   "explanation": {
     "probablySection": {
       "title": "たぶん?",
