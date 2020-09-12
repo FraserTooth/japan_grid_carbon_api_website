@@ -64,12 +64,15 @@ export default function Graph(props: any) {
   const now = new Date();
   const month = now.getMonth() + 1;
 
-  if (props.data === null) {
-    //Don't render if no data yet
+  if (Object.keys(props.data).length < 12) {
+    //Don't render if not enough data yet
     return <CircularProgress />;
   }
   // Add wrap around for the graph
-  const adjustedData = JSON.parse(JSON.stringify(props.data));
+
+  const monthsData = props.data[month];
+
+  const adjustedData = JSON.parse(JSON.stringify(monthsData));
   const wrapAround = JSON.parse(JSON.stringify(adjustedData[0]));
   wrapAround.hour = 24;
   adjustedData.push(wrapAround);

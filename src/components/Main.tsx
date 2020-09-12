@@ -11,13 +11,9 @@ const supportedUtilities = ["tepco", "kepco", "tohokuden"];
 
 const carbonIntensityColor = (carbonIntensity: number): string => {
   const maxIntensity = 900;
-
   const hueCalc = 100 - Math.floor((carbonIntensity / maxIntensity) * 100);
-
   const hue = hueCalc > 0 ? hueCalc : 0;
-
   console.log(`hsl(${hue},100%,100%)`);
-
   return `hsl(${hue},100%,50%)`;
 };
 
@@ -37,7 +33,7 @@ export default function Main() {
   const [
     dailyCarbonByMonthAndWeekday,
     setDailyCarbonByMonthAndWeekday,
-  ] = useState(intensity.byMonth.default);
+  ] = useState(intensity.byMonthWeekday.default);
 
   const [utility, setUtility] = useState(supportedUtilities[0]);
 
@@ -47,6 +43,7 @@ export default function Main() {
   useEffect(() => {
     // retriveDailyIntensity(setDailyCarbon, "tepco");
     intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
+    // intensity.byMonthWeekday.retrive(setDailyCarbonByMonthAndWeekday, utility);
   }, [utility]);
 
   useEffect(() => {
@@ -73,7 +70,7 @@ export default function Main() {
           {carbonIntensity}
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbonByMonth[month] ?? null} />
+        <Graph data={dailyCarbonByMonth ?? null} />
         <Divider variant="middle" />
         <Explanation />
       </Box>
