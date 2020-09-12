@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactGA from "react-ga";
-import Graph from "./Graph";
+import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
 import intensity from "./API";

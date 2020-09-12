@@ -29,7 +29,7 @@ export default function Title(props: any) {
 
   const [utilityChoice, setUtilityChoice] = useState(0);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: string }>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,7 +16,7 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { useTranslation } from "react-i18next";
+import Title from "./Title";
 
 const useStyles = makeStyles({
   tooltip: {
@@ -59,8 +59,11 @@ function CustomTooltip({ payload, label, active }: any) {
 }
 
 export default function Graph(props: any) {
-  const { t } = useTranslation();
   const classes = useStyles();
+
+  const [monthChoice, setMonthChoice] = useState(null);
+  const [weekdayChoice, setWeekdayChoice] = useState(null);
+
   const now = new Date();
   const month = now.getMonth() + 1;
   const weekday = now.getDay(); // 0-6, 0 is Sunday in JS
@@ -98,12 +101,12 @@ export default function Graph(props: any) {
 
   return (
     <Card className={classes.graphCard}>
-      <Typography variant="h6" align="center">
-        {t("carbonGraphTitle", {
-          month: t(`months.${month - 1}`),
-          weekday: t(`weekdays.${weekdayInAPI - 1}`),
-        })}
-      </Typography>
+      <Title
+        setMonthChoice={setMonthChoice}
+        setWeekdayChoice={setWeekdayChoice}
+        monthChoice={monthChoice}
+        weekdayChoice={weekdayChoice}
+      />
       <br />
       {renderLineChart}
     </Card>
