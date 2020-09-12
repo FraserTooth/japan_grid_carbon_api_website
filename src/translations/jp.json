@@ -57,7 +57,8 @@
     },
     "helpSection": {
       "title": "How can I help?",
-      "repoLink": "You can contribute technically through our <repoLink>ギットハブ</repoLink>"
+      "repoLink": "You can contribute technically through our <repoLink>ギットハブ</repoLink>",
+      "sponsor": "If you are interested in sponsoring this project, please <contactLink>Get In Touch</contactLink>"
     }
   }
 }

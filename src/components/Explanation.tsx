@@ -72,6 +72,14 @@ export default function Explanation() {
             }}
           />
         </Typography>
+        <Typography>
+          <Trans
+            i18nKey="explanation.helpSection.sponsor"
+            components={{
+              contactLink: transLink("https://frasertooth.dev/"),
+            }}
+          />
+        </Typography>
       </Box>
     </Box>
   );
