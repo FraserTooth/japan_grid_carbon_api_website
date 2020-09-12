@@ -1,15 +1,7 @@
 import React from "react";
-import ReactGA from "react-ga";
 import { useTranslation, Trans } from "react-i18next";
 
-import {
-  Box,
-  Container,
-  Typography,
-  makeStyles,
-  Link,
-  Divider,
-} from "@material-ui/core";
+import { Box, Typography, makeStyles, Link } from "@material-ui/core";
 
 const useStyles = makeStyles({
   explanation: {
