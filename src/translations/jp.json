@@ -28,7 +28,7 @@
     "kepco": "関西電力",
     "tohokuden": "東北電力"
   },
-  "carbonGraphTitle": "{{month}}の{{weekday}}のカーボンインテンシティ、4年間のアベレージです。",
+  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>のカーボンインテンシティ、4年間のアベレージです。",
   "explanation": {
     "probablySection": {
       "title": "たぶん?",

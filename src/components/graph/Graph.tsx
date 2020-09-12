@@ -61,13 +61,15 @@ function CustomTooltip({ payload, label, active }: any) {
 export default function Graph(props: any) {
   const classes = useStyles();
 
-  const [monthChoice, setMonthChoice] = useState(null);
-  const [weekdayChoice, setWeekdayChoice] = useState(null);
-
   const now = new Date();
-  const month = now.getMonth() + 1;
+  const month = now.getMonth();
+  const monthInAPI = month + 1;
   const weekday = now.getDay(); // 0-6, 0 is Sunday in JS
   const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
+  const weekdayInMenu = weekdayInAPI - 1;
+
+  const [monthChoice, setMonthChoice] = useState(month);
+  const [weekdayChoice, setWeekdayChoice] = useState(weekdayInMenu);
 
   if (Object.keys(props.data).length < 12) {
     //Don't render if not enough data yet
@@ -75,7 +77,7 @@ export default function Graph(props: any) {
   }
   // Add wrap around for the graph
 
-  const data = props.data[month][weekdayInAPI];
+  const data = props.data[monthInAPI][weekdayInAPI];
 
   const adjustedData = JSON.parse(JSON.stringify(data));
   const wrapAround = JSON.parse(JSON.stringify(adjustedData[0]));
