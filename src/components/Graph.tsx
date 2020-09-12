@@ -63,6 +63,8 @@ export default function Graph(props: any) {
   const classes = useStyles();
   const now = new Date();
   const month = now.getMonth() + 1;
+  const weekday = now.getDay(); // 0-6, 0 is Sunday in JS
+  const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
 
   if (Object.keys(props.data).length < 12) {
     //Don't render if not enough data yet
@@ -70,9 +72,9 @@ export default function Graph(props: any) {
   }
   // Add wrap around for the graph
 
-  const monthsData = props.data[month];
+  const data = props.data[month][weekdayInAPI];
 
-  const adjustedData = JSON.parse(JSON.stringify(monthsData));
+  const adjustedData = JSON.parse(JSON.stringify(data));
   const wrapAround = JSON.parse(JSON.stringify(adjustedData[0]));
   wrapAround.hour = 24;
   adjustedData.push(wrapAround);
