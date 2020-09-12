@@ -10,9 +10,18 @@ const defaultDailyCarbon: DailyCarbonData[] = [
 interface DailyCarbonDataByMonth {
   [key: number]: DailyCarbonData[];
 }
-const defaultDailyCarbonMonth: DailyCarbonDataByMonth = [
-  [{ carbon_intensity: 0, hour: 0 }],
-];
+const defaultDailyCarbonMonth: DailyCarbonDataByMonth = {
+  1: [{ carbon_intensity: 0, hour: 0 }],
+};
+
+interface DailyCarbonDataByMonthAndWeekday {
+  [key: number]: DailyCarbonDataByMonth;
+}
+const defaultDailyCarbonMonthAndWeekday: DailyCarbonDataByMonthAndWeekday = {
+  1: {
+    1: [{ carbon_intensity: 0, hour: 0 }],
+  },
+};
 
 const retriveDailyIntensity = async (
   setData: (data: DailyCarbonData[]) => void,
@@ -46,13 +55,34 @@ const retriveDailyIntensityByMonth = async (
   setData(data);
 };
 
+const retriveDailyIntensityByMonthAndWeekday = async (
+  setData: (data: DailyCarbonDataByMonthAndWeekday) => void,
+  utility: string
+): Promise<void> => {
+  setData(defaultDailyCarbonMonthAndWeekday);
+  const response = await fetch(
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}/month_and_weekday`
+  );
+
+  const result = await response.json();
+
+  const data: DailyCarbonDataByMonthAndWeekday =
+    result["data"]["carbon_intensity_by_month_and_weekday"];
+
+  setData(data);
+};
+
 export default {
-  daily: {
+  average: {
     default: defaultDailyCarbon,
     retrive: retriveDailyIntensity,
   },
   byMonth: {
     default: defaultDailyCarbonMonth,
     retrive: retriveDailyIntensityByMonth,
+  },
+  byMonthWeekday: {
+    default: defaultDailyCarbonMonthAndWeekday,
+    retrive: retriveDailyIntensityByMonthAndWeekday,
   },
 };

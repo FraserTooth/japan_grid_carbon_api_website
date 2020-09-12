@@ -30,8 +30,6 @@ export default function Main() {
   const hourIndex = date.getHours();
   const month = date.getMonth() + 1;
 
-  // const [dailyCarbon, setDailyCarbon] = useState(defaultDailyCarbon);
-
   const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
     intensity.byMonth.default
   );
@@ -75,7 +73,7 @@ export default function Main() {
           {carbonIntensity}
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbonByMonth[month] ?? intensity.byMonth.default} />
+        <Graph data={dailyCarbonByMonth[month] ?? null} />
         <Divider variant="middle" />
         <Explanation />
       </Box>

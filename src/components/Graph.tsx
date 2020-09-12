@@ -64,6 +64,10 @@ export default function Graph(props: any) {
   const now = new Date();
   const month = now.getMonth() + 1;
 
+  if (props.data === null) {
+    //Don't render if no data yet
+    return <CircularProgress />;
+  }
   // Add wrap around for the graph
   const adjustedData = JSON.parse(JSON.stringify(props.data));
   const wrapAround = JSON.parse(JSON.stringify(adjustedData[0]));
@@ -93,7 +97,7 @@ export default function Graph(props: any) {
         {t("carbonGraphTitle", { month: t(`months.${month - 1}`) })}
       </Typography>
       <br />
-      {props.data.length > 1 ? renderLineChart : <CircularProgress />}
+      {renderLineChart}
     </Card>
   );
 }
