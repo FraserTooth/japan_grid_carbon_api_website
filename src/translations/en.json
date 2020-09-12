@@ -28,6 +28,10 @@
     "kepco": "KEPCO",
     "tohokuden": "Tohokuden"
   },
+  "graph": {
+    "today": "Today",
+    "compare": "Compared Date"
+  },
   "carbonGraphTitle": "Carbon Intensity over a given <weekdayMenu></weekdayMenu> in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
   "explanation": {
     "probablySection": {

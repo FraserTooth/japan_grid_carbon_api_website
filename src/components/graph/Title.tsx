@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Title(props: any) {
-  const date = new Date();
-  const weekday = date.getDay(); // 0-6, 0 is Sunday in JS
-  const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
-
   const { t } = useTranslation();
 
   const handleChangeMonth = (
