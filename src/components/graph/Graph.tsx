@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 
 import Title from "./Title";
+import useWindowDimensions from "./resize";
 import CustomTooltip, { timeFormatter } from "./Tooltip";
 
 const useStyles = makeStyles({
@@ -24,14 +25,6 @@ const useStyles = makeStyles({
     padding: "10px",
   },
 });
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
 
 export default function Graph(props: any) {
   const classes = useStyles();
@@ -45,6 +38,9 @@ export default function Graph(props: any) {
 
   const [monthChoice, setMonthChoice] = useState(month);
   const [weekdayChoice, setWeekdayChoice] = useState(weekdayInMenu);
+
+  const { width } = useWindowDimensions();
+  const graphWidth = width > 700 ? 500 : width - 100;
 
   if (Object.keys(props.data).length < 12) {
     //Don't render if not enough data yet
@@ -69,9 +65,8 @@ export default function Graph(props: any) {
   wrapAround.hour = 24;
   adjustedData.push(wrapAround);
 
-  console.log(adjustedData);
   const renderLineChart = (
-    <LineChart width={500} height={300} data={adjustedData}>
+    <LineChart width={graphWidth} height={300} data={adjustedData}>
       <Line type="monotone" dataKey="carbon_intensity" stroke="#8884d8" />
       <Line type="monotone" dataKey="comparison" stroke="red" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
