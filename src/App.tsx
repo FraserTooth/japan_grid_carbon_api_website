@@ -14,6 +14,8 @@ import {
 
 import { useTranslation } from "react-i18next";
 
+ReactGA.initialize("UA-48407359-4", { standardImplementation: true });
+
 const useStyles = makeStyles({
   copyright: {
     margin: "10px",
@@ -25,10 +27,6 @@ const useStyles = makeStyles({
     backgroundColor: "white",
   },
 });
-
-export const initGA = () => {
-  ReactGA.initialize("UA-48407359-4"); // put your tracking id here
-};
 
 function Copyright() {
   const classes = useStyles();
@@ -49,9 +47,12 @@ function Copyright() {
 function App() {
   const classes = useStyles();
   const { i18n } = useTranslation();
+
   useEffect(() => {
-    initGA();
-  }, []);
+    ReactGA.initialize("UA-48407359-4", { standardImplementation: true });
+    ReactGA.pageview(window.location.pathname);
+  });
+
   return (
     <Container>
       <Box className={classes.languageSelect}>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactGA from "react-ga";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
@@ -15,10 +14,6 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
   const hue = hueCalc > 0 ? hueCalc : 0;
   console.log(`hsl(${hue},100%,100%)`);
   return `hsl(${hue},100%,50%)`;
-};
-
-export const GApageView = (page: string) => {
-  ReactGA.pageview(page);
 };
 
 export default function Main() {
@@ -46,10 +41,6 @@ export default function Main() {
     // intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
     intensity.byMonthWeekday.retrive(setDailyCarbonByMonthAndWeekday, utility);
   }, [utility]);
-
-  useEffect(() => {
-    GApageView("main");
-  }, []);
 
   return (
     <Container maxWidth="sm">
