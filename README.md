@@ -1,6 +1,6 @@
 # Japan Grid Carbon API Website
 
-This is the website built to show off and demonstrate the Japan Grid Carbon API.
+This is the [website](https://japan-grid-carbon.vercel.app/) built to show off and demonstrate the [Japan Grid Carbon API](https://github.com/FraserTooth/japan_grid_carbon_api).
 
 Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18next`
 
@@ -12,3 +12,7 @@ Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18ne
 - `yarn`
 - Make and commit your changes
 - Open a PR to the master branch of this repo with a detailed explanation of your work (inc. screenshots)
+
+#### Guidelines:
+
+- Design preference is to make the Japanese translation look good before the English version.
