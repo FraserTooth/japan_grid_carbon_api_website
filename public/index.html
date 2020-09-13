@@ -8,13 +8,13 @@
       content="minimum-scale=1, initial-scale=1, width=device-width"
     />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Japan Grid Carbon API"
-    />
-    
+    <meta name="description" content="Japan Grid Carbon API" />
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -30,6 +30,33 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Denki Carbon</title>
+
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
+
+      ga("create", "UA-48407359-4", "auto");
+      ga("send", "pageview");
+    </script>
+    <!-- End Google Analytics -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

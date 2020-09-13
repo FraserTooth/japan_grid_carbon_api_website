@@ -50,7 +50,6 @@ export default function Title(props: any) {
   return (
     <Typography variant="h5" component="h1" gutterBottom>
       <Trans i18nKey="theCarbonIs" components={{ utilityMenu }} />
-      {"(" + t("probably") + "):"}
     </Typography>
   );
 }

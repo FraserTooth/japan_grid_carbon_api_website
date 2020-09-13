@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import ReactGA from "react-ga";
+import React from "react";
 import "./App.css";
 import Main from "./components/Main";
 
@@ -13,8 +12,6 @@ import {
 } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
-
-ReactGA.initialize("UA-48407359-4", { standardImplementation: true });
 
 const useStyles = makeStyles({
   copyright: {
@@ -47,12 +44,6 @@ function Copyright() {
 function App() {
   const classes = useStyles();
   const { i18n } = useTranslation();
-
-  useEffect(() => {
-    ReactGA.initialize("UA-48407359-4", { standardImplementation: true });
-    ReactGA.pageview(window.location.pathname);
-  });
-
   return (
     <Container>
       <Box className={classes.languageSelect}>

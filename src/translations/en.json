@@ -1,6 +1,5 @@
 {
-  "theCarbonIs": "The C02 emitted from Electricity Generation supplied by <utilityMenu></utilityMenu> right now is ",
-  "probably": "probably",
+  "theCarbonIs": "The C02 emitted from Electricity Generation supplied by <utilityMenu></utilityMenu> right now is (probably):",
   "months": [
     "January",
     "February",
