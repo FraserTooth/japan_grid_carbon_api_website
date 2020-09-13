@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     marginTop: "20px",
     marginBottom: "20px",
   },
+  textBlock: {
+    marginBottom: "10px",
+  },
 });
 
 export default function Explanation() {
@@ -26,7 +29,9 @@ export default function Explanation() {
     const sectionArray: any = t(key, {
       returnObjects: true,
     });
-    return sectionArray.map((line: string) => <Typography>{line}</Typography>);
+    return sectionArray.map((line: string) => (
+      <Typography className={classes.textBlock}>{line}</Typography>
+    ));
   };
 
   return (
