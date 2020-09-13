@@ -20,12 +20,7 @@ export default function Explanation() {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const preventDefault = (event: React.SyntheticEvent) =>
-    event.preventDefault();
-
-  const transLink = (url: string) => (
-    <Link href={url} onClick={preventDefault}></Link>
-  );
+  const transLink = (url: string) => <Link href={url}></Link>;
 
   const buildParagraph = (key: string): any => {
     const sectionArray: any = t(key, {
