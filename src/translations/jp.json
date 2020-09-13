@@ -30,7 +30,10 @@
   },
   "graph": {
     "today": "今日",
-    "compare": "選ぶ日"
+    "compare": "選ぶ日",
+    "todayLine": "今日",
+    "compareLine": "選ぶ日",
+    "targetLine": "2030目標"
   },
   "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>のカーボンインテンシティ、4年間のアベレージです。",
   "explanation": {

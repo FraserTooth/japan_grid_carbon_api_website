@@ -30,7 +30,10 @@
   },
   "graph": {
     "today": "Today",
-    "compare": "Compared Date"
+    "compare": "Compared Date",
+    "todayLine": "Today",
+    "compareLine": "Compared Date",
+    "targetLine": "2030 Target"
   },
   "carbonGraphTitle": "Carbon Intensity over a given <weekdayMenu></weekdayMenu> in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
   "explanation": {
