@@ -62,6 +62,7 @@ export default function Graph(props: any) {
     target: {
       color: "green",
       type: "line",
+      strokeDasharray: "6 6",
       name: String(t("graph.targetLine")),
     },
   };
@@ -82,7 +83,10 @@ export default function Graph(props: any) {
     {
       value: lineInfo.target.name,
       id: 3,
-      type: "line",
+      type: "plainline",
+      payload: {
+        strokeDasharray: lineInfo.target.strokeDasharray,
+      },
       color: lineInfo.target.color,
     },
   ];
