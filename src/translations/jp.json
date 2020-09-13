@@ -38,16 +38,16 @@
   "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>のカーボンインテンシティ、4年間のアベレージです。",
   "explanation": {
     "probablySection": {
-      "title": "たぶん?",
+      "title": "たぶん？",
       "paragraph": [
-        "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
-        "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity.",
-        "Since live energy market data, by generation source, is not currently available in Japan, we have to make these predictions.",
-        "As this project develops, we hope to improve our predictions, but more than this, we hope that Japanese energy utilties will make available the required data in real time so that this number is not a prediction, but fact."
+        "はい、データはライブではないのせいで精度ができません。",
+        "このAPIは有史データを電力会社ウェブサイトからダウンロードをしています。このデータ使っているで予報をつくれます。",
+        "ライブ電気市場と発電データアクセスがいないのせいで、予報作らなければなりません。",
+        "私たちはこのAPI作っているを通じて予報精度に増えているだけど、電力会社からライブデータは一番解決と思います。"
       ]
     },
     "howSection": {
-      "title": "How is the Carbon Intensity Calculated?",
+      "title": "カーボンインテンシティをどう割り出しているか？",
       "paragraph": [
         "The carbon intensity is calculated for a given period by figuring out the proportion of energy generation that came from each fuel type.",
         "This proportion is then multiplied by the Carbon Intensity for that fuel type, for example, the carbon intensity factor for coal is 937 C02/kWh with Combined Cycle Gas Turbines (CCGT) having a factor of 394 C02/kWh.",
@@ -59,7 +59,7 @@
       "carbonIntensityLink": "Currently we draw our Carbon Intensity factors from the UKs own  <carbonLink>Carbon Intensity API</carbonLink>, if equivalent 'Japan specific' research is available we would consider using that instead."
     },
     "helpSection": {
-      "title": "How can I help?",
+      "title": "手伝いましょうか？",
       "repoLink": "You can contribute technically through Github at our <apiLink>API Repository</apiLink> or <webLink>Website Repository</webLink>",
       "sponsor": "If you are interested in sponsoring this project, please <contactLink>Get In Touch</contactLink>"
     }
