@@ -6,7 +6,18 @@ import intensity from "./API";
 
 import { Box, Container, Typography, Divider } from "@material-ui/core";
 
-const supportedUtilities = ["tepco", "kepco", "tohokuden"];
+const supportedUtilities = [
+  "tepco",
+  "kepco",
+  "tohokuden",
+  "chuden",
+  "hepco",
+  "rikuden",
+  "cepco",
+  "yonden",
+  "kyuden",
+  "okiden",
+];
 
 const carbonIntensityColor = (carbonIntensity: number): string => {
   const maxIntensity = 900;
@@ -37,7 +48,6 @@ export default function Main() {
     ) || 0;
 
   useEffect(() => {
-    // retriveDailyIntensity(setDailyCarbon, "tepco");
     // intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
     intensity.byMonthWeekday.retrive(setDailyCarbonByMonthAndWeekday, utility);
   }, [utility]);

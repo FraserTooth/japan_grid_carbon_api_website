@@ -26,7 +26,14 @@
   "utilities": {
     "tepco": "東京電力",
     "kepco": "関西電力",
-    "tohokuden": "東北電力"
+    "tohokuden": "東北電力",
+    "chuden": "中部電力",
+    "hepco": "北海道電力",
+    "rikuden": "北陸電力",
+    "cepco": "中国電力/Energia",
+    "yonden": "四国電力",
+    "kyuden": "九州電力",
+    "okiden": "沖縄電力"
   },
   "graph": {
     "today": "今日",

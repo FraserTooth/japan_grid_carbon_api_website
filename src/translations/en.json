@@ -26,7 +26,14 @@
   "utilities": {
     "tepco": "TEPCO",
     "kepco": "KEPCO",
-    "tohokuden": "Tohokuden"
+    "tohokuden": "Tohokuden",
+    "chuden": "Chuden",
+    "hepco": "HEPCO",
+    "rikuden": "Hokuden/Rikuden",
+    "cepco": "CEPCO/ENERGIA",
+    "yonden": "Yonden",
+    "kyuden": "Kyuden",
+    "okiden": "Okiden"
   },
   "graph": {
     "today": "Today",
