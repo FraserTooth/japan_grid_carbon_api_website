@@ -12,6 +12,7 @@ Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18ne
 - `yarn`
 - Make and commit your changes
 - Open a PR to the master branch of this repo with a detailed explanation of your work (inc. screenshots)
+- Guidelines in [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #### Guidelines:
 
