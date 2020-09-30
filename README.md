@@ -17,3 +17,5 @@ Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18ne
 #### Guidelines:
 
 - Design preference is to make the Japanese translation look good before the English version.
+
+###if you like it please give  a ⭐
