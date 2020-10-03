@@ -1,5 +1,5 @@
 {
-  "theCarbonIs": "今は <utilityMenu></utilityMenu> で発電C02の発生は(たぶん):",
+  "theCarbonIs": "今現在 <utilityMenu></utilityMenu> の発電所から排出されているC02の量は(推定値):",
   "months": [
     "1月",
     "2月",
@@ -37,12 +37,12 @@
   },
   "graph": {
     "today": "今日",
-    "compare": "選ぶ日",
+    "compare": "比較日",
     "todayLine": "今日",
-    "compareLine": "選ぶ日",
-    "targetLine": "2030目標"
+    "compareLine": "比較日",
+    "targetLine": "2030までの目標"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>のカーボンインテンシティ、4年間のアベレージです。",
+  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>の炭素強度(過去4年の平均)",
   "explanation": {
     "probablySection": {
       "title": "たぶん？",
