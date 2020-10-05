@@ -1,3 +1,5 @@
+import getDistance from 'geolib/es/getDistance';
+
 interface DailyCarbonData {
   [key: string]: number;
   hour: number;
@@ -71,6 +73,54 @@ const retriveDailyIntensityByMonthAndWeekday = async (
 
   setData(data);
 };
+
+interface LatLong {
+    latitude: number;
+    longitude: number;
+}
+
+const fetchCurrentUsersCountry = async (userLatLong: LatLong): Promise<string> => {
+    const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLatLong.latitude},${userLatLong.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+    );
+
+    return response.json().then((geocodingResult) => {
+        let userCountry = "";
+        
+        for (let i = 0; i < geocodingResult.results.length; i++) {
+            const result = geocodingResult.results[i];
+            if(result["types"]?.indexOf("country") >= 0) {
+                userCountry = result["address_components"]?.[0]?.["short_name"];
+                break;
+            }
+        }
+        return userCountry;
+    });
+}
+
+const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong): string => {
+    let nearestUtility = '';
+    let minDistance = null;
+
+    for (const utility in utilityGeocoordinatesMap) {
+        if (Object.prototype.hasOwnProperty.call(utilityGeocoordinatesMap, utility)) {
+            const utilityLatLong = utilityGeocoordinatesMap[utility];
+            let userProximityToUtility = getDistance(userLatLong, utilityLatLong);
+
+            if((minDistance == null) || userProximityToUtility < minDistance) {
+                minDistance = userProximityToUtility;
+                nearestUtility = utility;
+            }    
+        }
+    }
+
+    return nearestUtility;
+}
+
+export const LocationUtils = {
+    fetchCountry : fetchCurrentUsersCountry,
+    fetchUtility : fetchNearestUtility
+}
 
 export default {
   average: {
