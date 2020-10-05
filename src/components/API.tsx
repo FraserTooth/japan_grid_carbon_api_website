@@ -97,7 +97,7 @@ const fetchCurrentUsersCountry = async (userLatLong: LatLong): Promise<string> =
             }
         } else {
             console.error(`The geocoding request has failed with the status: ${geocodingResult.status}` +  
-                            `and with the error message: ${geocodingResult.error_message}`);
+                            ` and with the error message: ${geocodingResult.error_message}`);
         }
         
         return userCountry;
