@@ -85,31 +85,7 @@ export default function Main() {
   const [utility, setUtility] = useState(supportedUtilities[0]);
 
   useEffect(() => {
-      // Get the current User's geolocation and fetch the nearest Utility option
-      if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                let userLatLong = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-                LocationUtils.fetchCountry(userLatLong).then(data => {
-                    if(data && data === 'JP') {
-                        let nearestUtility = LocationUtils.fetchUtility(utilityGeocoordinates, userLatLong);
-                        setUtility(nearestUtility);
-                    }
-                }).catch((error) => {
-                    console.error(`An error has occurred while fetching the current user's country from Google Geocoding API. 
-                                    Please if you have the correct Google API key created.`);
-                });
-            },
-            (error) => {
-                console.error(`An error has occurred while fetching the user's geolocation: ${error.message}`);
-            } 
-        )
-      } else {
-          console.log(`Geolocation access has not been granted.`);
-      }
+    LocationUtils.fetchUtilityBasedOnGeolocation(utilityGeocoordinates, setUtility);
   }, []);
 
   const carbonIntensity =

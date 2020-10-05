@@ -86,7 +86,7 @@ const fetchCurrentUsersCountry = async (userLatLong: LatLong): Promise<string> =
 
     return response.json().then((geocodingResult) => {
         let userCountry = "";
-        
+
         for (let i = 0; i < geocodingResult.results.length; i++) {
             const result = geocodingResult.results[i];
             if(result["types"]?.indexOf("country") >= 0) {
@@ -117,9 +117,36 @@ const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong
     return nearestUtility;
 }
 
+const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setUtility: any) => {
+    // Get the current User's geolocation and fetch the nearest Utility option
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let userLatLong = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                fetchCurrentUsersCountry(userLatLong).then(data => {
+                    if(data && data === 'JP') {
+                        let nearestUtility = fetchNearestUtility(utilityGeocoordinatesMap, userLatLong);
+                        setUtility(nearestUtility);
+                    }
+                }).catch((error) => {
+                    console.error(`An error has occurred while fetching the current user's country from Google Geocoding API. 
+                                    Please check if you have the correct Google API key created.`);
+                });
+            },
+            (error) => {
+                console.error(`An error has occurred while fetching the user's geolocation: ${error.message}`);
+            } 
+        )
+    } else {
+        console.log(`Geolocation is not available.`);
+    }
+}
+
 export const LocationUtils = {
-    fetchCountry : fetchCurrentUsersCountry,
-    fetchUtility : fetchNearestUtility
+    fetchUtilityBasedOnGeolocation: fetchUtilityBasedOnUsersGeolocation
 }
 
 export default {
