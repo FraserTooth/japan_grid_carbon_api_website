@@ -87,13 +87,19 @@ const fetchCurrentUsersCountry = async (userLatLong: LatLong): Promise<string> =
     return response.json().then((geocodingResult) => {
         let userCountry = "";
 
-        for (let i = 0; i < geocodingResult.results.length; i++) {
-            const result = geocodingResult.results[i];
-            if(result["types"]?.indexOf("country") >= 0) {
-                userCountry = result["address_components"]?.[0]?.["short_name"];
-                break;
+        if(geocodingResult.status === "OK") {
+            for (let i = 0; i < geocodingResult.results.length; i++) {
+                const result = geocodingResult.results[i];
+                if(result["types"]?.indexOf("country") >= 0) {
+                    userCountry = result["address_components"]?.[0]?.["short_name"];
+                    break;
+                }
             }
+        } else {
+            console.error(`The geocoding request has failed with the status: ${geocodingResult.status}` +  
+                            `and with the error message: ${geocodingResult.error_message}`);
         }
+        
         return userCountry;
     });
 }
@@ -132,8 +138,8 @@ const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setU
                         setUtility(nearestUtility);
                     }
                 }).catch((error) => {
-                    console.error(`An error has occurred while fetching the current user's country from Google Geocoding API. 
-                                    Please check if you have the correct Google API key created.`);
+                    console.error(`An error has occurred while fetching the current user's country from Google Geocoding API.` + 
+                                    ` Please check if you have the correct Google API key created.`);
                 });
             },
             (error) => {
