@@ -48,11 +48,11 @@ function App() {
     <Container>
       <Box className={classes.languageSelect}>
         <Button size="small" onClick={() => i18n.changeLanguage("ja")}>
-          ja
+          日本語
         </Button>
         |
         <Button size="small" onClick={() => i18n.changeLanguage("en")}>
-          en
+          EN
         </Button>
       </Box>
       <Main />
