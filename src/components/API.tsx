@@ -28,7 +28,7 @@ const retriveDailyIntensity = async (
   utility: string
 ): Promise<void> => {
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}`
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}`
   );
 
   const result = await response.json();
@@ -44,7 +44,7 @@ const retriveDailyIntensityByMonth = async (
 ): Promise<void> => {
   setData(defaultDailyCarbonMonth);
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}/month`
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}/month`
   );
 
   const result = await response.json();
@@ -61,7 +61,7 @@ const retriveDailyIntensityByMonthAndWeekday = async (
 ): Promise<void> => {
   setData(defaultDailyCarbonMonthAndWeekday);
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/daily_carbon_intensity/${utility}/month_and_weekday`
+    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}/month_and_weekday`
   );
 
   const result = await response.json();

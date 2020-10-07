@@ -150,7 +150,7 @@ export default function Graph(props: any) {
       />
       <YAxis
         label={{ value: "gC02/kWh", angle: -90, position: "insideLeft" }}
-        domain={[0, 800]}
+        domain={[0, 900]}
       />
       <Tooltip content={<CustomTooltip />} />
       <Legend verticalAlign="bottom" height={36} payload={legendPayload} />
