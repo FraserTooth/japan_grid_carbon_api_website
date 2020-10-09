@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useTranslation, Trans } from "react-i18next";
 
@@ -27,7 +27,11 @@ export default function Title(props: any) {
 
   const supportedUtilities = props.supportedUtilities;
 
-  const [utilityChoice, setUtilityChoice] = useState(0);
+  const [utilityChoice, setUtilityChoice] = useState(props.utilityIndex);
+
+  useEffect(() => {
+    setUtilityChoice(props.utilityIndex);
+  }, [props.utilityIndex]);
 
   // const classes = useStyles();
 
