@@ -74,12 +74,31 @@ const retriveDailyIntensityByMonthAndWeekday = async (
   setData(data);
 };
 
+// Data source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
+const JAPAN_COORDS = {
+    min_long: 129.408463169,
+    min_lat: 31.0295791692,
+    max_long: 145.543137242,
+    max_lat: 45.5514834662
+};
+
 interface LatLong {
     latitude: number;
     longitude: number;
 }
 
+const isUserInsideJPBounds = (userCoords: LatLong): boolean => {
+    return (
+        (userCoords.latitude >= JAPAN_COORDS.min_lat && userCoords.latitude <= JAPAN_COORDS.max_lat) &&
+        (userCoords.longitude >= JAPAN_COORDS.min_long && userCoords.longitude <= JAPAN_COORDS.max_long)
+    )
+}
+
 const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong): string => {
+    if(!isUserInsideJPBounds(userLatLong)) {
+        return '';
+    }
+
     let nearestUtility = '';
     let minDistance = null;
 
@@ -95,17 +114,7 @@ const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong
         }
     }
 
-    /*
-     * Return the nearest Utility found, if the least distance between the User's location and the Utility is less than 500 km
-     * Return a value that is falsy in JS, if the least distance is greater than 500 km
-     * 
-     * NOTE: the value of 500 km is chosen based on the largest Prefecture in Japan and also it is almost half the length of Japan
-     */
-    if(minDistance && minDistance < 500000) {
-        return nearestUtility;
-    }
-
-    return '';
+    return nearestUtility;
 }
 
 const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setUtility: any) => {
