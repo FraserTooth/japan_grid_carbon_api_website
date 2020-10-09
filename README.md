@@ -4,8 +4,6 @@ This is the [website](https://japan-grid-carbon.vercel.app/) built to show off a
 
 Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18next`
 
-> Note: You would need a Google API Key (free quota is available) to use geolocation based functionality in this application. Create a `.env` file with `REACT_APP_GOOGLE_API_KEY=<Your-Google-API-key>` in that.
-
 ### How to Contribute
 
 - Create an Issue to Explain your Problem, Feature

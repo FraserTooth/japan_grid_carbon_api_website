@@ -79,31 +79,6 @@ interface LatLong {
     longitude: number;
 }
 
-const fetchCurrentUsersCountry = async (userLatLong: LatLong): Promise<string> => {
-    const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userLatLong.latitude},${userLatLong.longitude}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-    );
-
-    return response.json().then((geocodingResult) => {
-        let userCountry = "";
-
-        if(geocodingResult.status === "OK") {
-            for (let i = 0; i < geocodingResult.results.length; i++) {
-                const result = geocodingResult.results[i];
-                if(result["types"]?.indexOf("country") >= 0) {
-                    userCountry = result["address_components"]?.[0]?.["short_name"];
-                    break;
-                }
-            }
-        } else {
-            console.error(`The geocoding request has failed with the status: ${geocodingResult.status}` +  
-                            ` and with the error message: ${geocodingResult.error_message}`);
-        }
-        
-        return userCountry;
-    });
-}
-
 const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong): string => {
     let nearestUtility = '';
     let minDistance = null;
@@ -120,7 +95,17 @@ const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong
         }
     }
 
-    return nearestUtility;
+    /*
+     * Return the nearest Utility found, if the least distance between the User's location and the Utility is less than 500 km
+     * Return a value that is falsy in JS, if the least distance is greater than 500 km
+     * 
+     * NOTE: the value of 500 km is chosen based on the largest Prefecture in Japan and also it is almost half the length of Japan
+     */
+    if(minDistance && minDistance < 500000) {
+        return nearestUtility;
+    }
+
+    return '';
 }
 
 const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setUtility: any) => {
@@ -132,15 +117,11 @@ const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setU
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude
                 };
-                fetchCurrentUsersCountry(userLatLong).then(data => {
-                    if(data && data === 'JP') {
-                        let nearestUtility = fetchNearestUtility(utilityGeocoordinatesMap, userLatLong);
-                        setUtility(nearestUtility);
-                    }
-                }).catch((error) => {
-                    console.error(`An error has occurred while fetching the current user's country from Google Geocoding API.` + 
-                                    ` Please check if you have the correct Google API key created.`);
-                });
+
+                const nearestUtility = fetchNearestUtility(utilityGeocoordinatesMap, userLatLong);
+                if(nearestUtility) {
+                    setUtility(nearestUtility);
+                }
             },
             (error) => {
                 console.error(`An error has occurred while fetching the user's geolocation: ${error.message}`);
