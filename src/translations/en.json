@@ -47,7 +47,7 @@
     "probablySection": {
       "title": "Probably?",
       "paragraph": [
-        "Yes, this measurement is by no means accurate, this is beacuse the data that feeds this value is not live.",
+        "Yes, this measurement is by no means accurate, this is because the data that feeds this value is not live.",
         "It comes from the Grid Operator Website as historical data, from which we extrapolate to the present and calculate a corresponding Carbon Intensity.",
         "Since live energy market data, by generation source, is not currently available in Japan, we have to make these predictions.",
         "As this project develops, we hope to improve our predictions, but more than this, we hope that Japanese energy utilties will make available the required data in real time so that this number is not a prediction, but fact."
