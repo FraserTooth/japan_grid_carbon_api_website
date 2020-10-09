@@ -95,6 +95,8 @@ const isUserInsideJPBounds = (userCoords: LatLong): boolean => {
 }
 
 const fetchNearestUtility = (utilityGeocoordinatesMap: any, userLatLong: LatLong): string => {
+    console.log(`Is the current user inside Japan: ${isUserInsideJPBounds(userLatLong)}`);
+    // If the current user is not inside Japan, return a falsy JS value
     if(!isUserInsideJPBounds(userLatLong)) {
         return '';
     }
