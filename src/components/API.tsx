@@ -1,4 +1,6 @@
 import getDistance from 'geolib/es/getDistance';
+const apiURL = process.env.REACT_APP_API_URL
+console.log("API URL: ", apiURL)
 
 interface DailyCarbonData {
   [key: string]: number;
@@ -30,7 +32,7 @@ const retriveDailyIntensity = async (
   utility: string
 ): Promise<void> => {
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}`
+    `${apiURL}/daily_carbon_intensity/${utility}`
   );
 
   const result = await response.json();
@@ -46,7 +48,7 @@ const retriveDailyIntensityByMonth = async (
 ): Promise<void> => {
   setData(defaultDailyCarbonMonth);
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}/month`
+    `${apiURL}/daily_carbon_intensity/${utility}/month`
   );
 
   const result = await response.json();
@@ -63,7 +65,7 @@ const retriveDailyIntensityByMonthAndWeekday = async (
 ): Promise<void> => {
   setData(defaultDailyCarbonMonthAndWeekday);
   const response = await fetch(
-    `https://us-central1-japan-grid-carbon-api.cloudfunctions.net/api/v0.1/daily_carbon_intensity/${utility}/month_and_weekday`
+    `${apiURL}/daily_carbon_intensity/${utility}/month_and_weekday`
   );
 
   const result = await response.json();

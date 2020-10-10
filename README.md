@@ -10,6 +10,9 @@ Its built mostly using `React` in `Typescript` but also uses `Recharts` & `i18ne
 - Fork the Project
 - Clone Locally
 - `yarn`
+- Add a `.env` file to your project root with:
+  - REACT_APP_API_URL=`https://us-central1-japan-grid-carbon-api<ENVIRONMENT>.cloudfunctions.net/api/v0.1`
+    - Environment is nothing for Production, `-staging` for Staging
 - Make and commit your changes
 - Open a PR to the master branch of this repo with a detailed explanation of your work (inc. screenshots)
 - Guidelines in [CONTRIBUTING.md](CONTRIBUTING.md)
