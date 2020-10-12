@@ -12,9 +12,7 @@ import {
 import {
   CircularProgress,
   Card,
-  Typography,
   makeStyles,
-  Box,
 } from "@material-ui/core";
 
 import Title from "./Title";
@@ -22,8 +20,6 @@ import useWindowDimensions from "./resize";
 import CustomTooltip, { timeFormatter } from "./Tooltip";
 
 import { useTranslation } from "react-i18next";
-
-import intensity from "../API"
 
 const useStyles = makeStyles({
   graphCard: {
@@ -39,6 +35,7 @@ export default function Graph(props: any) {
 
   const now = new Date();
   const month = now.getMonth();
+  const year = now.getFullYear();
   const monthInAPI = month + 1;
   const weekday = now.getDay(); // 0-6, 0 is Sunday in JS
   const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
@@ -60,11 +57,6 @@ export default function Graph(props: any) {
       color: "red",
       type: "line",
       name: String(t("graph.compareLine")),
-    },
-    prediction: {
-      color: "purple",
-      type: "line",
-      name: String(t("graph.predictLine")),
     },
     target: {
       color: "green",
@@ -96,12 +88,6 @@ export default function Graph(props: any) {
       },
       color: lineInfo.target.color,
     },
-    {
-      value: lineInfo.prediction.name,
-      id: 4,
-      type: "none",
-      color: lineInfo.prediction.color,
-    },
   ];
 
   if (Object.keys(props.data).length < 12) {
@@ -110,11 +96,6 @@ export default function Graph(props: any) {
   }
 
   let data = props.data[monthInAPI][weekdayInAPI];
-  let predictionData = props?.predictionData?.[monthInAPI]?.[weekdayInAPI]
-
-  console.log("Prediction Year:", props.predictionYear)
-  console.log(predictionData)
-  
 
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
@@ -123,16 +104,12 @@ export default function Graph(props: any) {
       ...dp,
     };
     // Add Comparison Data to chart and legend, if we have it
-    if (monthChoice !== month || weekdayChoice !== weekdayInMenu) {
-      const comparisonData = props.data[monthChoice + 1][weekdayChoice + 1];
-      newDP.comparison = comparisonData[i].carbon_intensity;
+    if (monthChoice !== month || weekdayChoice !== weekdayInMenu || props.predictionYear !== year) {
+      const comparisonData = props.predictionData?.[monthChoice + 1]?.[weekdayChoice + 1];
+      newDP.comparison = comparisonData?.[i].predicted_carbon_intensity;
       legendPayload[1].type = "line";
     }
 
-    // Add Prediction Data if we have it
-    if(props.predictionYear !== now.getFullYear()){
-      newDP.prediction = predictionData?.[i]?.predicted_carbon_intensity
-    }
     return newDP;
   });
 
@@ -155,12 +132,6 @@ export default function Graph(props: any) {
         type="monotone"
         dataKey="comparison"
         stroke={lineInfo.compare.color}
-      />
-      <Line
-        name={lineInfo.compare.name}
-        type="monotone"
-        dataKey="prediction"
-        stroke={lineInfo.prediction.color}
       />
       <Line
         name={lineInfo.target.name}
