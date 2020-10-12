@@ -40,9 +40,10 @@
     "compare": "Compared Date",
     "todayLine": "Today",
     "compareLine": "Compared Date",
-    "targetLine": "2030 Target"
+    "targetLine": "2030 Target",
+    "predictLine": "Prediction"
   },
-  "carbonGraphTitle": "Carbon Intensity over a given <weekdayMenu></weekdayMenu> in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
+  "carbonGraphTitle": "Carbon Intensity over a given <weekdayMenu></weekdayMenu> in <monthMenu></monthMenu>, averaged from the last 4 years of data. And a prediction for <predictionYearMenu></predictionYearMenu>",
   "explanation": {
     "probablySection": {
       "title": "Probably?",

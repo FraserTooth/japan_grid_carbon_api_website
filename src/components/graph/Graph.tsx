@@ -23,6 +23,8 @@ import CustomTooltip, { timeFormatter } from "./Tooltip";
 
 import { useTranslation } from "react-i18next";
 
+import intensity from "../API"
+
 const useStyles = makeStyles({
   graphCard: {
     padding: "10px",
@@ -59,6 +61,11 @@ export default function Graph(props: any) {
       type: "line",
       name: String(t("graph.compareLine")),
     },
+    prediction: {
+      color: "purple",
+      type: "line",
+      name: String(t("graph.predictLine")),
+    },
     target: {
       color: "green",
       type: "line",
@@ -89,6 +96,12 @@ export default function Graph(props: any) {
       },
       color: lineInfo.target.color,
     },
+    {
+      value: lineInfo.prediction.name,
+      id: 4,
+      type: "none",
+      color: lineInfo.prediction.color,
+    },
   ];
 
   if (Object.keys(props.data).length < 12) {
@@ -97,6 +110,11 @@ export default function Graph(props: any) {
   }
 
   let data = props.data[monthInAPI][weekdayInAPI];
+  let predictionData = props?.predictionData?.[monthInAPI]?.[weekdayInAPI]
+
+  console.log("Prediction Year:", props.predictionYear)
+  console.log(predictionData)
+  
 
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
@@ -109,6 +127,11 @@ export default function Graph(props: any) {
       const comparisonData = props.data[monthChoice + 1][weekdayChoice + 1];
       newDP.comparison = comparisonData[i].carbon_intensity;
       legendPayload[1].type = "line";
+    }
+
+    // Add Prediction Data if we have it
+    if(props.predictionYear !== now.getFullYear()){
+      newDP.prediction = predictionData?.[i]?.predicted_carbon_intensity
     }
     return newDP;
   });
@@ -132,6 +155,12 @@ export default function Graph(props: any) {
         type="monotone"
         dataKey="comparison"
         stroke={lineInfo.compare.color}
+      />
+      <Line
+        name={lineInfo.compare.name}
+        type="monotone"
+        dataKey="prediction"
+        stroke={lineInfo.prediction.color}
       />
       <Line
         name={lineInfo.target.name}
@@ -162,6 +191,8 @@ export default function Graph(props: any) {
       <Title
         setMonthChoice={setMonthChoice}
         setWeekdayChoice={setWeekdayChoice}
+        predictionYear={props.predictionYear}
+        setPredictionYear={props.setPredictionYear} 
         monthChoice={monthChoice}
         weekdayChoice={weekdayChoice}
       />

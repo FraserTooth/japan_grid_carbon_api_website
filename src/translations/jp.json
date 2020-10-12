@@ -40,9 +40,10 @@
     "compare": "比較日",
     "todayLine": "今日",
     "compareLine": "比較日",
-    "targetLine": "2030までの目標"
+    "targetLine": "2030までの目標",
+    "predictLine": "Prediction"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>の炭素強度(過去4年の平均)",
+  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>の炭素強度(過去4年の平均).  And a prediction for <predictionYearMenu></predictionYearMenu>",
   "explanation": {
     "probablySection": {
       "title": "推定値？",

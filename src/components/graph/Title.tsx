@@ -22,9 +22,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function range(size: number, startAt:number) {
+  const array:any = Array(size).keys()
+  return [...array].map(i => i + startAt);
+}
+const now = new Date()
+const predictionYears:number[] = range(30,now.getFullYear())
+
 export default function Title(props: any) {
   const { t } = useTranslation();
 
+  // MONTH
   const handleChangeMonth = (
     event: React.ChangeEvent<{ name?: string; value: string }>
   ) => {
@@ -42,6 +50,7 @@ export default function Title(props: any) {
     </NativeSelect>
   );
 
+  // WEEKDAY
   const handleChangeWeekday = (
     event: React.ChangeEvent<{ name?: string; value: string }>
   ) => {
@@ -57,11 +66,27 @@ export default function Title(props: any) {
     </NativeSelect>
   );
 
+  // YEAR
+  const handleChangePredictionYear = (
+    event: React.ChangeEvent<{ name?: string; value: string }>
+  ) => {
+    const choice = parseInt(event.target.value);
+    props.setPredictionYear(choice);
+  };
+
+  const predictionYearMenu = (
+    <NativeSelect value={props.predictionYear} onChange={handleChangePredictionYear}>
+      {predictionYears.map((year: number) => {
+        return <option value={year}>{String(year)}</option>;
+      })}
+    </NativeSelect>
+  );
+
   return (
     <Typography variant="h6" align="center">
       <Trans
         i18nKey="carbonGraphTitle"
-        components={{ monthMenu, weekdayMenu }}
+        components={{ monthMenu, weekdayMenu, predictionYearMenu }}
       />
     </Typography>
   );

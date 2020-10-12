@@ -99,6 +99,15 @@ export default function Main() {
     intensity.byMonthWeekday.retrive(setDailyCarbonByMonthAndWeekday, utility);
   }, [utility]);
 
+  const now = new Date();
+  const [predictionData, setpredictionData] = useState(intensity.prediction.default);
+  const [predictionYear, setPredictionYear] = useState(now.getFullYear());
+
+  useEffect(() => {
+    intensity.prediction.retrive(setpredictionData, utility, predictionYear);
+  }, [predictionYear, utility]);
+
+
   return (
     <Container maxWidth="sm">
       <Box my={4}>
@@ -119,7 +128,12 @@ export default function Main() {
           {carbonIntensity}
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbonByMonthAndWeekday ?? null} />
+        <Graph 
+          data={dailyCarbonByMonthAndWeekday ?? null} 
+          predictionData={predictionData ?? null} 
+          setPredictionYear={setPredictionYear} 
+          predictionYear={predictionYear}
+        />
         <Divider variant="middle" />
         <Explanation />
       </Box>

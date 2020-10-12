@@ -85,8 +85,8 @@ const retrivePrediction = async (
   setData(defaultDailyCarbonMonthAndWeekday);
   const response = await fetch(
     `${apiURL}/daily_carbon_intensity/${utility}/prediction/${year}`
-  );
-
+    );
+    
   const result = await response.json();
 
   const data: DailyCarbonDataByMonthAndWeekday =
