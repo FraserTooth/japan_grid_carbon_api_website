@@ -76,6 +76,25 @@ const retriveDailyIntensityByMonthAndWeekday = async (
   setData(data);
 };
 
+// Uses Month and Weekday Style Prediction
+const retrivePrediction = async (
+  setData: (data: DailyCarbonDataByMonthAndWeekday) => void,
+  utility: string,
+  year: number
+): Promise<void> => {
+  setData(defaultDailyCarbonMonthAndWeekday);
+  const response = await fetch(
+    `${apiURL}/daily_carbon_intensity/${utility}/prediction/${year}`
+  );
+
+  const result = await response.json();
+
+  const data: DailyCarbonDataByMonthAndWeekday =
+    result["data"]["carbon_intensity_by_month_and_weekday"];
+
+  setData(data);
+};
+
 // Data source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
 const JAPAN_COORDS = {
     min_long: 129.408463169,
@@ -161,4 +180,8 @@ export default {
     default: defaultDailyCarbonMonthAndWeekday,
     retrive: retriveDailyIntensityByMonthAndWeekday,
   },
+  prediction: {
+    default: defaultDailyCarbonMonthAndWeekday,
+    retrive: retrivePrediction
+  }
 };
