@@ -66,6 +66,10 @@
       ],
       "carbonIntensityLink": "Currently we draw our Carbon Intensity factors from the UKs own  <carbonLink>Carbon Intensity API</carbonLink>, if equivalent 'Japan specific' research is available we would consider using that instead."
     },
+    "useSection": {
+      "title": "Can I get access to the data?",
+      "docsLink": "Of Course! Check out out the API documentation at <docsLink>docs.denkicarbon.jp</docsLink>."
+    },
     "helpSection": {
       "title": "How can I help?",
       "repoLink": "You can contribute technically through Github at our <apiLink>API Repository</apiLink> or <webLink>Website Repository</webLink>",
