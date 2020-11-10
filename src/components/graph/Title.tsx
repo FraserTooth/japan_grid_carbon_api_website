@@ -22,11 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function range(size: number, startAt:number) {
-  const array:any = Array(size).keys()
-  return [...array].map(i => i + startAt);
-}
-const now = new Date()
 
 export default function Title(props: any) {
   const { t } = useTranslation();
