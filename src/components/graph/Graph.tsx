@@ -35,14 +35,8 @@ export default function Graph(props: any) {
 
   const now = new Date();
   const month = now.getMonth();
-  const year = now.getFullYear();
-  const monthInAPI = month + 1;
-  const weekday = now.getDay(); // 0-6, 0 is Sunday in JS
-  const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
-  const weekdayInMenu = weekdayInAPI - 1;
 
   const [monthChoice, setMonthChoice] = useState(month);
-  const [weekdayChoice, setWeekdayChoice] = useState(weekdayInMenu);
 
   const { width } = useWindowDimensions();
   const graphWidth = width > 700 ? 500 : width - 100;
@@ -95,8 +89,9 @@ export default function Graph(props: any) {
     return <CircularProgress />;
   }
 
-  let data = props.data[monthInAPI][weekdayInAPI];
-
+  
+  let data = props.data[month].data
+  
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
     const newDP = {
@@ -104,9 +99,9 @@ export default function Graph(props: any) {
       ...dp,
     };
     // Add Comparison Data to chart and legend, if we have it
-    if (monthChoice !== month || weekdayChoice !== weekdayInMenu || props.predictionYear !== year) {
-      const comparisonData = props.predictionData?.[monthChoice + 1]?.[weekdayChoice + 1];
-      newDP.comparison = comparisonData?.[i].predicted_carbon_intensity;
+    if (monthChoice !== month) {
+      const comparisonData = props.data?.[monthChoice].data
+      newDP.comparison = comparisonData?.[i].carbon_intensity;
       legendPayload[1].type = "line";
     }
 
@@ -161,11 +156,7 @@ export default function Graph(props: any) {
     <Card className={classes.graphCard}>
       <Title
         setMonthChoice={setMonthChoice}
-        setWeekdayChoice={setWeekdayChoice}
-        predictionYear={props.predictionYear}
-        setPredictionYear={props.setPredictionYear} 
         monthChoice={monthChoice}
-        weekdayChoice={weekdayChoice}
       />
       <br />
       {renderLineChart}

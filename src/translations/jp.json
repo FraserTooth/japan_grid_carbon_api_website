@@ -43,7 +43,7 @@
     "targetLine": "2030までの目標",
     "predictLine": "Prediction"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>の炭素強度(過去4年の平均).  And a prediction for <predictionYearMenu></predictionYearMenu>",
+  "carbonGraphTitle": "<monthMenu></monthMenu>の日の炭素強度(過去4年の平均).",
   "explanation": {
     "probablySection": {
       "title": "推定値？",
