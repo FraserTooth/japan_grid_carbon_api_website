@@ -73,14 +73,12 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
 export default function Main() {
   const date = new Date();
   const hourIndex = date.getHours();
-  const month = date.getMonth() + 1;
-  const weekday = date.getDay(); // 0-6, 0 is Sunday in JS
-  const weekdayInAPI = weekday === 0 ? 7 : weekday; // No Zero in API, 1-7, 1 is Monday
+  const month: number = date.getMonth() + 1;
 
   const [
-    dailyCarbonByMonthAndWeekday,
-    setDailyCarbonByMonthAndWeekday,
-  ] = useState(intensity.byMonthWeekday.default);
+    dailyCarbonByMonth,
+    setDailyCarbonByMonth,
+  ] = useState(intensity.byMonth.default);
 
   const [utility, setUtility] = useState(supportedUtilities[0]);
 
@@ -90,13 +88,12 @@ export default function Main() {
 
   const carbonIntensity =
     Math.round(
-      dailyCarbonByMonthAndWeekday[month]?.[weekdayInAPI]?.[hourIndex]
+      dailyCarbonByMonth[month]?.data?.[hourIndex]
         ?.carbon_intensity
     ) || 0;
 
   useEffect(() => {
-    // intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
-    intensity.byMonthWeekday.retrive(setDailyCarbonByMonthAndWeekday, utility);
+    intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
   }, [utility]);
 
   return (
@@ -119,7 +116,9 @@ export default function Main() {
           {carbonIntensity}
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph data={dailyCarbonByMonthAndWeekday ?? null} />
+        <Graph 
+          data={dailyCarbonByMonth ?? null}
+        />
         <Divider variant="middle" />
         <Explanation />
       </Box>

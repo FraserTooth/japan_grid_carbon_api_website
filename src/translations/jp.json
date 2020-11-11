@@ -40,9 +40,10 @@
     "compare": "比較日",
     "todayLine": "今日",
     "compareLine": "比較日",
-    "targetLine": "2030までの目標"
+    "targetLine": "2030までの目標",
+    "predictLine": "Prediction"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の <weekdayMenu></weekdayMenu>の炭素強度(過去4年の平均)",
+  "carbonGraphTitle": "<monthMenu></monthMenu>の日の炭素強度(過去4年の平均).",
   "explanation": {
     "probablySection": {
       "title": "推定値？",
@@ -64,6 +65,10 @@
         "これが完全ではないことは承知していますが、日本の電力会社がどのような燃料をどの時間にどのように燃やしているのか、また炭素回収などの補助技術をどのように利用しているのかについて、もっと透明性を高めてほしいと思います。"
       ],
       "carbonIntensityLink": "現在、イギリス独自の<carbonLink>炭素強度API</carbonLink>から炭素強度係数を算出していますが、同等の「日本固有」の調査が利用可能な場合は、代わりにそれを使用することを検討します。"
+    },
+    "useSection": {
+      "title": "Can I get access to the data?",
+      "docsLink": "Of Course! Check out out the API documentation at <docsLink>docs.denkicarbon.jp</docsLink>."
     },
     "helpSection": {
       "title": "手伝いましょうか？",

@@ -3,7 +3,6 @@ const apiURL = process.env.REACT_APP_API_URL
 console.log("API URL: ", apiURL)
 
 interface DailyCarbonData {
-  [key: string]: number;
   hour: number;
   carbon_intensity: number;
 }
@@ -12,66 +11,44 @@ const defaultDailyCarbon: DailyCarbonData[] = [
 ];
 
 interface DailyCarbonDataByMonth {
-  [key: number]: DailyCarbonData[];
+  month: number;
+  data: DailyCarbonData[]
 }
-const defaultDailyCarbonMonth: DailyCarbonDataByMonth = {
-  1: [{ carbon_intensity: 0, hour: 0 }],
-};
-
-interface DailyCarbonDataByMonthAndWeekday {
-  [key: number]: DailyCarbonDataByMonth;
-}
-const defaultDailyCarbonMonthAndWeekday: DailyCarbonDataByMonthAndWeekday = {
-  1: {
-    1: [{ carbon_intensity: 0, hour: 0 }],
-  },
-};
+const defaultDailyCarbonMonth: DailyCarbonDataByMonth[] = [{
+  month: 1,
+  data: defaultDailyCarbon,
+}];
 
 const retriveDailyIntensity = async (
   setData: (data: DailyCarbonData[]) => void,
   utility: string
 ): Promise<void> => {
   const response = await fetch(
-    `${apiURL}/daily_carbon_intensity/${utility}`
+    `${apiURL}/carbon_intensity/average/${utility}`
   );
 
   const result = await response.json();
 
-  const data: DailyCarbonData[] = result["data"]["carbon_intensity_by_hour"];
+  console.log(result)
+
+  const data: DailyCarbonData[] = result["data"]["carbon_intensity_average"]["data"];
 
   setData(data);
 };
 
 const retriveDailyIntensityByMonth = async (
-  setData: (data: DailyCarbonDataByMonth) => void,
+  setData: (data: DailyCarbonDataByMonth[]) => void,
   utility: string
 ): Promise<void> => {
   setData(defaultDailyCarbonMonth);
   const response = await fetch(
-    `${apiURL}/daily_carbon_intensity/${utility}/month`
+    `${apiURL}/carbon_intensity/average/month/${utility}`
   );
 
   const result = await response.json();
 
-  const data: DailyCarbonDataByMonth =
-    result["data"]["carbon_intensity_by_month"];
-
-  setData(data);
-};
-
-const retriveDailyIntensityByMonthAndWeekday = async (
-  setData: (data: DailyCarbonDataByMonthAndWeekday) => void,
-  utility: string
-): Promise<void> => {
-  setData(defaultDailyCarbonMonthAndWeekday);
-  const response = await fetch(
-    `${apiURL}/daily_carbon_intensity/${utility}/month_and_weekday`
-  );
-
-  const result = await response.json();
-
-  const data: DailyCarbonDataByMonthAndWeekday =
-    result["data"]["carbon_intensity_by_month_and_weekday"];
+  const data: DailyCarbonDataByMonth[] =
+    result["data"]["carbon_intensity_average"]["data"];
 
   setData(data);
 };
@@ -156,9 +133,5 @@ export default {
   byMonth: {
     default: defaultDailyCarbonMonth,
     retrive: retriveDailyIntensityByMonth,
-  },
-  byMonthWeekday: {
-    default: defaultDailyCarbonMonthAndWeekday,
-    retrive: retriveDailyIntensityByMonthAndWeekday,
-  },
+  }
 };

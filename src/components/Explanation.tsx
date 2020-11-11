@@ -60,6 +60,20 @@ export default function Explanation() {
 
       <Box className={classes.section}>
         <Typography variant="h5" className={classes.explanationTitle}>
+          {t("explanation.useSection.title")}
+        </Typography>
+        <Typography>
+          <Trans
+            i18nKey="explanation.useSection.docsLink"
+            components={{
+              docsLink: transLink("https://docs.denkicarbon.jp"),
+            }}
+          />
+        </Typography>
+      </Box>
+
+      <Box className={classes.section}>
+        <Typography variant="h5" className={classes.explanationTitle}>
           {t("explanation.helpSection.title")}
         </Typography>
         <Typography>

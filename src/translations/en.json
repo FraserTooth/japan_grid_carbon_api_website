@@ -40,9 +40,10 @@
     "compare": "Compared Date",
     "todayLine": "Today",
     "compareLine": "Compared Date",
-    "targetLine": "2030 Target"
+    "targetLine": "2030 Target",
+    "predictLine": "Prediction"
   },
-  "carbonGraphTitle": "Carbon Intensity over a given <weekdayMenu></weekdayMenu> in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
+  "carbonGraphTitle": "Carbon Intensity over a given day in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
   "explanation": {
     "probablySection": {
       "title": "Probably?",
@@ -64,6 +65,10 @@
         "We realise this is not perfect and wish that the Japanese utilties would be more transparent about the kinds of fuel they are burning at what times, and what supplementary technologies they are using, such as carbon capture."
       ],
       "carbonIntensityLink": "Currently we draw our Carbon Intensity factors from the UKs own  <carbonLink>Carbon Intensity API</carbonLink>, if equivalent 'Japan specific' research is available we would consider using that instead."
+    },
+    "useSection": {
+      "title": "Can I get access to the data?",
+      "docsLink": "Of Course! Check out out the API documentation at <docsLink>docs.denkicarbon.jp</docsLink>."
     },
     "helpSection": {
       "title": "How can I help?",
