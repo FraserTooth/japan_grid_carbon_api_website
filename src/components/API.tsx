@@ -19,6 +19,28 @@ const defaultDailyCarbonMonth: DailyCarbonDataByMonth[] = [{
   data: defaultDailyCarbon,
 }];
 
+interface CarbonIntensityForecast {
+  forecast_timestamp: string,
+  forecast_value: number,
+  standard_error: number,
+  confidence_level: number,
+  prediction_interval_lower_bound: number,
+  prediction_interval_upper_bound: number,
+  confidence_interval_lower_bound: number,
+  confidence_interval_upper_bound: number
+}
+const defaultCarbonIntensityForecast: CarbonIntensityForecast[] = [{
+  forecast_timestamp: "2020-01-01 00:00:00+00:00",
+  forecast_value: 1,
+  standard_error: 1,
+  confidence_level: 1,
+  prediction_interval_lower_bound: 1,
+  prediction_interval_upper_bound: 1,
+  confidence_interval_lower_bound: 1,
+  confidence_interval_upper_bound: 1
+}];
+
+
 const retriveDailyIntensity = async (
   setData: (data: DailyCarbonData[]) => void,
   utility: string
@@ -49,6 +71,23 @@ const retriveDailyIntensityByMonth = async (
 
   const data: DailyCarbonDataByMonth[] =
     result["data"]["carbon_intensity_average"]["data"];
+
+  setData(data);
+};
+
+const retriveForecast = async (
+  setData: (data: DailyCarbonDataByMonth[]) => void,
+  utility: string
+): Promise<void> => {
+  setData(defaultDailyCarbonMonth);
+  const response = await fetch(
+    `${apiURL}/carbon_intensity/forecast/${utility}`
+  );
+
+  const result = await response.json();
+
+  const data: DailyCarbonDataByMonth[] =
+    result["data"]["forecast"];
 
   setData(data);
 };
@@ -133,5 +172,9 @@ export default {
   byMonth: {
     default: defaultDailyCarbonMonth,
     retrive: retriveDailyIntensityByMonth,
+  },
+  forecast: {
+    default: defaultCarbonIntensityForecast,
+    retrive: retriveForecast,
   }
 };
