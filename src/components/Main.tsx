@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
-import intensity from "./api/denkicarbon";
+import intensity, {Utilities} from "./api/denkicarbon";
 import LocationUtils from './api/location'
 
 import { Box, Container, Typography, Divider } from "@material-ui/core";
 
-const supportedUtilities = [
-  "tepco",
-  "kepco",
-  "tohokuden",
-  "chuden",
-  "hepco",
-  "rikuden",
-  "cepco",
-  "yonden",
-  "kyuden",
-  "okiden",
+const supportedUtilities: Utilities[] = [
+  Utilities.Tepco,
+  Utilities.Kepco,
+  Utilities.Tohokuden,
+  Utilities.Chuden,
+  Utilities.Hepco,
+  Utilities.Rikuden,
+  Utilities.Cepco,
+  Utilities.Yonden,
+  Utilities.Kyuden,
+  Utilities.Okiden,
 ];
 
 const carbonIntensityColor = (carbonIntensity: number): string => {
