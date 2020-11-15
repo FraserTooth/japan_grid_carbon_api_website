@@ -75,26 +75,41 @@ export default function Main() {
   const hourIndex = date.getHours();
   const month: number = date.getMonth() + 1;
 
-  const [
-    dailyCarbonByMonth,
-    setDailyCarbonByMonth,
-  ] = useState(intensity.byMonth.default);
-
+  // Utility Choice
   const [utility, setUtility] = useState(supportedUtilities[0]);
-
   useEffect(() => {
     LocationUtils.fetchUtilityBasedOnGeolocation(utilityGeocoordinates, setUtility);
   }, []);
 
+  // Monthly Data
+  const [
+    dailyCarbonByMonth,
+    setDailyCarbonByMonth,
+  ] = useState(intensity.byMonth.default);
+  useEffect(() => {
+    intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
+  }, [utility]);
+  
+  
+  // Forecast
+  const [
+    intensityForecast,
+    setIntensityForecast,
+  ] = useState(intensity.forecast.default)
+  useEffect(() => {
+    intensity.forecast.retrive(setIntensityForecast, utility)
+  }, [utility])
+
+  const todaysData = intensity.forecast.findTodaysData(intensityForecast)
+  console.log(todaysData)
+
+  
+  // Set Big Number
   const carbonIntensity =
     Math.round(
       dailyCarbonByMonth[month]?.data?.[hourIndex]
         ?.carbon_intensity
     ) || 0;
-
-  useEffect(() => {
-    intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
-  }, [utility]);
 
   return (
     <Container maxWidth="sm">

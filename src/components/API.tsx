@@ -1,4 +1,5 @@
 import getDistance from 'geolib/es/getDistance';
+import moment from 'moment'
 const apiURL = process.env.REACT_APP_API_URL
 console.log("API URL: ", apiURL)
 
@@ -76,21 +77,35 @@ const retriveDailyIntensityByMonth = async (
 };
 
 const retriveForecast = async (
-  setData: (data: DailyCarbonDataByMonth[]) => void,
+  setData: (data: CarbonIntensityForecast[]) => void,
   utility: string
 ): Promise<void> => {
-  setData(defaultDailyCarbonMonth);
+  setData(defaultCarbonIntensityForecast);
   const response = await fetch(
     `${apiURL}/carbon_intensity/forecast/${utility}`
   );
 
   const result = await response.json();
 
-  const data: DailyCarbonDataByMonth[] =
+  const data: CarbonIntensityForecast[] =
     result["data"]["forecast"];
 
   setData(data);
 };
+
+const datesAreOnSameDay = (first: Date, second: Date) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
+
+const findTodaysData = (forecastData: CarbonIntensityForecast[]) => {
+  const now = new Date();
+  return forecastData.filter((hourData: CarbonIntensityForecast) => {
+    const day = new Date(Date.parse(hourData.forecast_timestamp))
+    day.setHours(day.getHours() - 9); // Re-adjust for UTC Output from API
+    return datesAreOnSameDay(now, day)
+  })
+}
 
 // Data source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
 const JAPAN_COORDS = {
@@ -176,5 +191,6 @@ export default {
   forecast: {
     default: defaultCarbonIntensityForecast,
     retrive: retriveForecast,
+    findTodaysData 
   }
 };
