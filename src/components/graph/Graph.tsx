@@ -74,20 +74,26 @@ export default function Graph(props: GraphProps) {
 
   const legendPayload: ReadonlyArray<any> = [
     {
-      value: lineInfo.average.name,
+      value: lineInfo.forecast.name,
       id: 1,
+      type: "line",
+      color: lineInfo.forecast.color,
+    },
+    {
+      value: lineInfo.average.name,
+      id: 2,
       type: "line",
       color: lineInfo.average.color,
     },
     {
       value: lineInfo.compare.name,
-      id: 2,
+      id: 3,
       type: "none",
       color: lineInfo.compare.color,
     },
     {
       value: lineInfo.target.name,
-      id: 3,
+      id: 4,
       type: "plainline",
       payload: {
         strokeDasharray: lineInfo.target.strokeDasharray,
