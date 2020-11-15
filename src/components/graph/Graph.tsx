@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 
-import {CarbonIntensityForecast, DailyCarbonDataByMonth} from '../API'
+import {CarbonIntensityForecast, DailyCarbonDataByMonth} from '../api/denkicarbon'
 
 import {
   CircularProgress,
