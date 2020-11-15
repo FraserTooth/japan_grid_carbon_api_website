@@ -46,7 +46,8 @@ export default function CustomTooltip({ payload, label, active }: any) {
       <Card className={classes.tooltip}>
         <Box style={{ paddingLeft: "5px", paddingRight: "5px" }}>
           <Typography>{timeFormatter(dp.hour)}</Typography>
-          {dataBit(dp.carbon_intensity, t("graph.today"))}
+          {dataBit(dp.forecast, t("graph.forecast"))}
+          {dataBit(dp.average, t("graph.average"))}
           {dataBit(dp.comparison, t("graph.compare"))}
         </Box>
       </Card>

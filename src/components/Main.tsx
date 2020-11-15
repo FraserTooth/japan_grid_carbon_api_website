@@ -100,15 +100,12 @@ export default function Main() {
     intensity.forecast.retrive(setIntensityForecast, utility)
   }, [utility])
 
-  const todaysData = intensity.forecast.findTodaysData(intensityForecast)
-  console.log(todaysData)
+  const todaysForecastData = intensity.forecast.findTodaysData(intensityForecast)
 
-  
   // Set Big Number
   const carbonIntensity =
     Math.round(
-      dailyCarbonByMonth[month]?.data?.[hourIndex]
-        ?.carbon_intensity
+      todaysForecastData[hourIndex]?.forecast_value
     ) || 0;
 
   return (
@@ -132,7 +129,8 @@ export default function Main() {
         </Typography>
         <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
         <Graph 
-          data={dailyCarbonByMonth ?? null}
+          monthData={dailyCarbonByMonth ?? null}
+          forecastData={todaysForecastData ?? null}
         />
         <Divider variant="middle" />
         <Explanation />

@@ -1,9 +1,8 @@
 import getDistance from 'geolib/es/getDistance';
-import moment from 'moment'
 const apiURL = process.env.REACT_APP_API_URL
 console.log("API URL: ", apiURL)
 
-interface DailyCarbonData {
+export interface DailyCarbonData {
   hour: number;
   carbon_intensity: number;
 }
@@ -11,7 +10,7 @@ const defaultDailyCarbon: DailyCarbonData[] = [
   { carbon_intensity: 0, hour: 0 },
 ];
 
-interface DailyCarbonDataByMonth {
+export interface DailyCarbonDataByMonth {
   month: number;
   data: DailyCarbonData[]
 }
@@ -20,7 +19,7 @@ const defaultDailyCarbonMonth: DailyCarbonDataByMonth[] = [{
   data: defaultDailyCarbon,
 }];
 
-interface CarbonIntensityForecast {
+export interface CarbonIntensityForecast {
   forecast_timestamp: string,
   forecast_value: number,
   standard_error: number,

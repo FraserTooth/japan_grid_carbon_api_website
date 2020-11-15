@@ -9,6 +9,8 @@ import {
   Legend,
 } from "recharts";
 
+import {CarbonIntensityForecast, DailyCarbonDataByMonth} from '../API'
+
 import {
   CircularProgress,
   Card,
@@ -29,7 +31,12 @@ const useStyles = makeStyles({
 
 const INDUSTRY_TARGET_2030 = 370;
 
-export default function Graph(props: any) {
+interface GraphProps {
+  monthData: DailyCarbonDataByMonth[],
+  forecastData: CarbonIntensityForecast[]
+}
+
+export default function Graph(props: GraphProps) {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -42,10 +49,15 @@ export default function Graph(props: any) {
   const graphWidth = width > 700 ? 500 : width - 100;
 
   const lineInfo = {
-    today: {
+    average: {
+      color: "orange",
+      type: "line",
+      name: String(t("graph.averageLine")),
+    },
+    forecast: {
       color: "#8884d8",
       type: "line",
-      name: String(t("graph.todayLine")),
+      name: String(t("graph.forecast")),
     },
     compare: {
       color: "red",
@@ -62,10 +74,10 @@ export default function Graph(props: any) {
 
   const legendPayload: ReadonlyArray<any> = [
     {
-      value: lineInfo.today.name,
+      value: lineInfo.average.name,
       id: 1,
       type: "line",
-      color: lineInfo.today.color,
+      color: lineInfo.average.color,
     },
     {
       value: lineInfo.compare.name,
@@ -84,29 +96,33 @@ export default function Graph(props: any) {
     },
   ];
 
-  if (Object.keys(props.data).length < 12) {
+  if (Object.keys(props.monthData).length < 12) {
     //Don't render if not enough data yet
     return <CircularProgress />;
   }
 
   
-  let data = props.data[month].data
+  let data = props.monthData[month].data
   
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
-    const newDP = {
+    const newDP: any = {
       target2030: INDUSTRY_TARGET_2030,
-      ...dp,
+      forecast: props.forecastData[i]?.forecast_value,
+      average: dp.carbon_intensity,
+      hour: dp.hour,
     };
     // Add Comparison Data to chart and legend, if we have it
     if (monthChoice !== month) {
-      const comparisonData = props.data?.[monthChoice].data
+      const comparisonData = props.monthData?.[monthChoice].data
       newDP.comparison = comparisonData?.[i].carbon_intensity;
       legendPayload[1].type = "line";
     }
 
     return newDP;
   });
+
+  console.log(data)
 
   // Copy first Datapoint to the Back, with hour '24' so we get a neat 'midnight to midnight' line
   const adjustedData = JSON.parse(JSON.stringify(data));
@@ -117,10 +133,16 @@ export default function Graph(props: any) {
   const renderLineChart = (
     <LineChart width={graphWidth} height={300} data={adjustedData}>
       <Line
-        name={lineInfo.today.name}
+        name={lineInfo.average.name}
         type="monotone"
-        dataKey="carbon_intensity"
-        stroke={lineInfo.today.color}
+        dataKey="average"
+        stroke={lineInfo.average.color}
+      />
+      <Line
+        name={lineInfo.forecast.name}
+        type="monotone"
+        dataKey="forecast"
+        stroke={lineInfo.forecast.color}
       />
       <Line
         name={lineInfo.compare.name}

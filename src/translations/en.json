@@ -36,14 +36,15 @@
     "okiden": "Okiden"
   },
   "graph": {
-    "today": "Today",
-    "compare": "Compared Date",
-    "todayLine": "Today",
-    "compareLine": "Compared Date",
-    "targetLine": "2030 Target",
-    "predictLine": "Prediction"
+    "average": "Average",
+    "compare": "Compared Month",
+    "forecast": "Today's Forecast",
+    "averageLine": "Average",
+    "forecastLine": "Forecast",
+    "compareLine": "Compared Month",
+    "targetLine": "2030 Target"
   },
-  "carbonGraphTitle": "Carbon Intensity over a given day in <monthMenu></monthMenu>, averaged from the last 4 years of data.",
+  "carbonGraphTitle": "Today's Carbon Intensity Forecast, compared with 4-year average data for <monthMenu></monthMenu>",
   "explanation": {
     "probablySection": {
       "title": "Probably?",

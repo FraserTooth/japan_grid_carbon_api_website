@@ -36,14 +36,15 @@
     "okiden": "沖縄電力"
   },
   "graph": {
-    "today": "今日",
-    "compare": "比較日",
-    "todayLine": "今日",
-    "compareLine": "比較日",
-    "targetLine": "2030までの目標",
-    "predictLine": "Prediction"
+    "average": "平均",
+    "compare": "比較月",
+    "forecast": "今日の予報",
+    "averageLine": "平均",
+    "forecastLine": "予報",
+    "compareLine": "比較月",
+    "targetLine": "2030までの目標"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の日の炭素強度(過去4年の平均).",
+  "carbonGraphTitle": "今日の炭素強度予報と<monthMenu></monthMenu>の過去4年の平均",
   "explanation": {
     "probablySection": {
       "title": "推定値？",
