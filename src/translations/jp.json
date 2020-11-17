@@ -68,8 +68,8 @@
       "carbonIntensityLink": "現在、イギリス独自の<carbonLink>炭素強度API</carbonLink>から炭素強度係数を算出していますが、同等の「日本固有」の調査が利用可能な場合は、代わりにそれを使用することを検討します。"
     },
     "useSection": {
-      "title": "Can I get access to the data?",
-      "docsLink": "Of Course! Check out out the API documentation at <docsLink>docs.denkicarbon.jp</docsLink>."
+      "title": "データを使ってはいいですか?",
+      "docsLink": "もちろん! APIの説明書はここだ： <docsLink>docs.denkicarbon.jp</docsLink>."
     },
     "helpSection": {
       "title": "手伝いましょうか？",

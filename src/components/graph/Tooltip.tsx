@@ -13,6 +13,14 @@ export const timeFormatter = (tick: number) => {
 const useStyles = makeStyles({
   tooltip: {
     padding: "2px",
+    fontSize: "10px",
+  },
+  intensity: {
+    display: "inline-block",
+    fontSize: "12px",
+  },
+  time: {
+    fontSize: "15px",
   },
 });
 
@@ -23,15 +31,16 @@ export default function CustomTooltip({ payload, label, active }: any) {
   if (active) {
     const dp = payload[0].payload;
 
-    const dataBit = (data: any, label: string) => {
+    const dataBit = (data: any, label: string, color: string) => {
       return data ? (
         <div>
-          {label + ": "}
+          <div style={{ color, display: "inline-block" }}>{label}</div>
+          {": "}
           <Typography
+            className={classes.intensity}
             variant="h6"
             component="h1"
             gutterBottom
-            style={{ display: "inline-block" }}
           >
             {Math.round(data)}
           </Typography>
@@ -42,13 +51,23 @@ export default function CustomTooltip({ payload, label, active }: any) {
       );
     };
 
+    const lines = payload
+      .filter((line: any) => ["average", "forecast"].includes(line.dataKey))
+      .map((line: any) => {
+        return dataBit(
+          dp[line.dataKey],
+          t(`graph.${line.dataKey}`),
+          line.stroke
+        );
+      });
+
     return (
       <Card className={classes.tooltip}>
         <Box style={{ paddingLeft: "5px", paddingRight: "5px" }}>
-          <Typography>{timeFormatter(dp.hour)}</Typography>
-          {dataBit(dp.forecast, t("graph.forecast"))}
-          {dataBit(dp.average, t("graph.average"))}
-          {dataBit(dp.comparison, t("graph.compare"))}
+          <Typography className={classes.time}>
+            {timeFormatter(dp.hour)}
+          </Typography>
+          {lines}
         </Box>
       </Card>
     );
