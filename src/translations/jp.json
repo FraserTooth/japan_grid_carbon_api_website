@@ -36,14 +36,15 @@
     "okiden": "沖縄電力"
   },
   "graph": {
-    "today": "今日",
-    "compare": "比較日",
-    "todayLine": "今日",
-    "compareLine": "比較日",
-    "targetLine": "2030までの目標",
-    "predictLine": "Prediction"
+    "average": "平均",
+    "compare": "比較月",
+    "forecast": "今日の予報",
+    "averageLine": "平均",
+    "forecastLine": "予報",
+    "compareLine": "比較月",
+    "targetLine": "2030までの目標"
   },
-  "carbonGraphTitle": "<monthMenu></monthMenu>の日の炭素強度(過去4年の平均).",
+  "carbonGraphTitle": "今日の炭素強度予報と<monthMenu></monthMenu>の過去4年の平均",
   "explanation": {
     "probablySection": {
       "title": "推定値？",
@@ -67,8 +68,8 @@
       "carbonIntensityLink": "現在、イギリス独自の<carbonLink>炭素強度API</carbonLink>から炭素強度係数を算出していますが、同等の「日本固有」の調査が利用可能な場合は、代わりにそれを使用することを検討します。"
     },
     "useSection": {
-      "title": "Can I get access to the data?",
-      "docsLink": "Of Course! Check out out the API documentation at <docsLink>docs.denkicarbon.jp</docsLink>."
+      "title": "データを使ってはいいですか?",
+      "docsLink": "もちろん! APIの説明書はここだ： <docsLink>docs.denkicarbon.jp</docsLink>."
     },
     "helpSection": {
       "title": "手伝いましょうか？",

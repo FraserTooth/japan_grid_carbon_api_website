@@ -2,65 +2,29 @@ import React, { useState, useEffect } from "react";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
-import intensity, { LocationUtils } from "./API";
+import intensity, { Utilities } from "./api/denkicarbon";
+import LocationUtils from "./api/location";
 
-import { Box, Container, Typography, Divider } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  Divider,
+  CircularProgress,
+} from "@material-ui/core";
 
-const supportedUtilities = [
-  "tepco",
-  "kepco",
-  "tohokuden",
-  "chuden",
-  "hepco",
-  "rikuden",
-  "cepco",
-  "yonden",
-  "kyuden",
-  "okiden",
+const supportedUtilities: Utilities[] = [
+  Utilities.Tepco,
+  Utilities.Kepco,
+  Utilities.Tohokuden,
+  Utilities.Chuden,
+  Utilities.Hepco,
+  Utilities.Rikuden,
+  Utilities.Cepco,
+  Utilities.Yonden,
+  Utilities.Kyuden,
+  Utilities.Okiden,
 ];
-
-const utilityGeocoordinates = {
-    "tepco"     : {
-        latitude : 35.694003,
-        longitude: 139.753594
-    },
-    "kepco"     : {
-        latitude : 35.033333,
-        longitude: 126.716667
-    },
-    "tohokuden" : {
-        latitude : 38.269167,
-        longitude: 140.870556
-    },
-    "chuden"    : {
-        latitude : 35.183333,
-        longitude: 136.9
-    },
-    "hepco"     : {
-        latitude : 43.066667,
-        longitude: 141.35
-    },
-    "rikuden"   : {
-        latitude : 36.695917,
-        longitude: 137.213694
-    },
-    "cepco"     : {
-        latitude : 34.383333,
-        longitude: 132.45
-    },
-    "yonden"    : {
-        latitude : 34.35,
-        longitude: 134.05
-    },
-    "kyuden"    : {
-        latitude : 33.583333,
-        longitude: 130.4
-    },
-    "okiden"    : {
-        latitude : 26.245833,
-        longitude: 127.721944
-    }
-}
 
 const carbonIntensityColor = (carbonIntensity: number): string => {
   const maxIntensity = 900;
@@ -73,28 +37,39 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
 export default function Main() {
   const date = new Date();
   const hourIndex = date.getHours();
-  const month: number = date.getMonth() + 1;
 
-  const [
-    dailyCarbonByMonth,
-    setDailyCarbonByMonth,
-  ] = useState(intensity.byMonth.default);
-
+  // Utility Choice
   const [utility, setUtility] = useState(supportedUtilities[0]);
-
   useEffect(() => {
-    LocationUtils.fetchUtilityBasedOnGeolocation(utilityGeocoordinates, setUtility);
+    LocationUtils.fetchUtilityBasedOnGeolocation(
+      LocationUtils.utilityGeocoordinates,
+      setUtility
+    );
   }, []);
 
-  const carbonIntensity =
-    Math.round(
-      dailyCarbonByMonth[month]?.data?.[hourIndex]
-        ?.carbon_intensity
-    ) || 0;
-
+  // Monthly Data
+  const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
+    intensity.byMonth.default
+  );
   useEffect(() => {
     intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
   }, [utility]);
+
+  // Forecast
+  const [intensityForecast, setIntensityForecast] = useState(
+    intensity.forecast.default
+  );
+  useEffect(() => {
+    intensity.forecast.retrive(setIntensityForecast, utility);
+  }, [utility]);
+
+  const todaysForecastData = intensity.forecast.findTodaysData(
+    intensityForecast
+  );
+
+  // Set Big Number
+  const carbonIntensity =
+    Math.round(todaysForecastData[hourIndex]?.forecast_value) || 0;
 
   return (
     <Container maxWidth="sm">
@@ -104,21 +79,30 @@ export default function Main() {
           utilityIndex={supportedUtilities.indexOf(utility)}
           supportedUtilities={supportedUtilities}
         />
-        <Typography
-          variant="h2"
-          component="h1"
-          gutterBottom
-          style={{
-            display: "inline-block",
-            color: carbonIntensityColor(carbonIntensity),
-          }}
-        >
-          {carbonIntensity}
-        </Typography>
-        <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph 
-          data={dailyCarbonByMonth ?? null}
-        />
+        {carbonIntensity === 0 ? (
+          <CircularProgress />
+        ) : (
+          <div>
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
+              style={{
+                display: "inline-block",
+                color: carbonIntensityColor(carbonIntensity),
+              }}
+            >
+              {carbonIntensity}
+            </Typography>
+            <Typography style={{ display: "inline-block" }}>
+              gC02/kWh
+            </Typography>
+            <Graph
+              monthData={dailyCarbonByMonth ?? null}
+              forecastData={todaysForecastData ?? null}
+            />
+          </div>
+        )}
         <Divider variant="middle" />
         <Explanation />
       </Box>
