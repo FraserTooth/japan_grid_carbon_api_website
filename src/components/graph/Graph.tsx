@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,10 +10,11 @@ import {
 } from "recharts";
 
 import {
-  CircularProgress,
-  Card,
-  makeStyles,
-} from "@material-ui/core";
+  CarbonIntensityForecast,
+  DailyCarbonDataByMonth,
+} from "../api/denkicarbon";
+
+import { CircularProgress, Card, makeStyles } from "@material-ui/core";
 
 import Title from "./Title";
 import useWindowDimensions from "./resize";
@@ -29,7 +30,12 @@ const useStyles = makeStyles({
 
 const INDUSTRY_TARGET_2030 = 370;
 
-export default function Graph(props: any) {
+interface GraphProps {
+  monthData: DailyCarbonDataByMonth[];
+  forecastData: CarbonIntensityForecast[];
+}
+
+export default function Graph(props: GraphProps) {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -42,15 +48,15 @@ export default function Graph(props: any) {
   const graphWidth = width > 700 ? 500 : width - 100;
 
   const lineInfo = {
-    today: {
+    average: {
+      color: "orange",
+      type: "line",
+      name: String(t("graph.averageLine")),
+    },
+    forecast: {
       color: "#8884d8",
       type: "line",
-      name: String(t("graph.todayLine")),
-    },
-    compare: {
-      color: "red",
-      type: "line",
-      name: String(t("graph.compareLine")),
+      name: String(t("graph.forecast")),
     },
     target: {
       color: "green",
@@ -62,20 +68,20 @@ export default function Graph(props: any) {
 
   const legendPayload: ReadonlyArray<any> = [
     {
-      value: lineInfo.today.name,
+      value: lineInfo.forecast.name,
       id: 1,
       type: "line",
-      color: lineInfo.today.color,
+      color: lineInfo.forecast.color,
     },
     {
-      value: lineInfo.compare.name,
+      value: lineInfo.average.name,
       id: 2,
-      type: "none",
-      color: lineInfo.compare.color,
+      type: "line",
+      color: lineInfo.average.color,
     },
     {
       value: lineInfo.target.name,
-      id: 3,
+      id: 4,
       type: "plainline",
       payload: {
         strokeDasharray: lineInfo.target.strokeDasharray,
@@ -84,26 +90,21 @@ export default function Graph(props: any) {
     },
   ];
 
-  if (Object.keys(props.data).length < 12) {
+  if (Object.keys(props.monthData).length < 12) {
     //Don't render if not enough data yet
     return <CircularProgress />;
   }
 
-  
-  let data = props.data[month].data
-  
+  let data = props.monthData[monthChoice].data;
+
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
-    const newDP = {
+    const newDP: any = {
       target2030: INDUSTRY_TARGET_2030,
-      ...dp,
+      forecast: props.forecastData[i]?.forecast_value,
+      average: dp.carbon_intensity,
+      hour: dp.hour,
     };
-    // Add Comparison Data to chart and legend, if we have it
-    if (monthChoice !== month) {
-      const comparisonData = props.data?.[monthChoice].data
-      newDP.comparison = comparisonData?.[i].carbon_intensity;
-      legendPayload[1].type = "line";
-    }
 
     return newDP;
   });
@@ -117,16 +118,16 @@ export default function Graph(props: any) {
   const renderLineChart = (
     <LineChart width={graphWidth} height={300} data={adjustedData}>
       <Line
-        name={lineInfo.today.name}
+        name={lineInfo.average.name}
         type="monotone"
-        dataKey="carbon_intensity"
-        stroke={lineInfo.today.color}
+        dataKey="average"
+        stroke={lineInfo.average.color}
       />
       <Line
-        name={lineInfo.compare.name}
+        name={lineInfo.forecast.name}
         type="monotone"
-        dataKey="comparison"
-        stroke={lineInfo.compare.color}
+        dataKey="forecast"
+        stroke={lineInfo.forecast.color}
       />
       <Line
         name={lineInfo.target.name}
@@ -154,10 +155,7 @@ export default function Graph(props: any) {
 
   return (
     <Card className={classes.graphCard}>
-      <Title
-        setMonthChoice={setMonthChoice}
-        monthChoice={monthChoice}
-      />
+      <Title setMonthChoice={setMonthChoice} monthChoice={monthChoice} />
       <br />
       {renderLineChart}
     </Card>

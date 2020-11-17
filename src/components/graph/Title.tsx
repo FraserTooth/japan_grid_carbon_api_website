@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Typography,
@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-
 export default function Title(props: any) {
   const { t } = useTranslation();
 
@@ -44,28 +43,9 @@ export default function Title(props: any) {
     </NativeSelect>
   );
 
-  // Prediction YEAR
-  // const handleChangePredictionYear = (
-  //   event: React.ChangeEvent<{ name?: string; value: string }>
-  // ) => {
-  //   const choice = parseInt(event.target.value);
-  //   props.setPredictionYear(choice);
-  // };
-
-  // const predictionYearMenu = (
-  //   <NativeSelect value={props.predictionYear} onChange={handleChangePredictionYear}>
-  //     {predictionYears.map((year: number) => {
-  //       return <option value={year}>{String(year)}</option>;
-  //     })}
-  //   </NativeSelect>
-  // );
-
   return (
     <Typography variant="h6" align="center">
-      <Trans
-        i18nKey="carbonGraphTitle"
-        components={{ monthMenu }}
-      />
+      <Trans i18nKey="carbonGraphTitle" components={{ monthMenu }} />
     </Typography>
   );
 }
