@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
-import intensity, {Utilities} from "./api/denkicarbon";
-import LocationUtils from './api/location'
+import intensity, { Utilities } from "./api/denkicarbon";
+import LocationUtils from "./api/location";
 
-import { Box, Container, Typography, Divider } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  Divider,
+  CircularProgress,
+} from "@material-ui/core";
 
 const supportedUtilities: Utilities[] = [
   Utilities.Tepco,
@@ -36,35 +42,35 @@ export default function Main() {
   // Utility Choice
   const [utility, setUtility] = useState(supportedUtilities[0]);
   useEffect(() => {
-    LocationUtils.fetchUtilityBasedOnGeolocation(LocationUtils.utilityGeocoordinates, setUtility);
+    LocationUtils.fetchUtilityBasedOnGeolocation(
+      LocationUtils.utilityGeocoordinates,
+      setUtility
+    );
   }, []);
 
   // Monthly Data
-  const [
-    dailyCarbonByMonth,
-    setDailyCarbonByMonth,
-  ] = useState(intensity.byMonth.default);
+  const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(
+    intensity.byMonth.default
+  );
   useEffect(() => {
     intensity.byMonth.retrive(setDailyCarbonByMonth, utility);
   }, [utility]);
-  
-  
-  // Forecast
-  const [
-    intensityForecast,
-    setIntensityForecast,
-  ] = useState(intensity.forecast.default)
-  useEffect(() => {
-    intensity.forecast.retrive(setIntensityForecast, utility)
-  }, [utility])
 
-  const todaysForecastData = intensity.forecast.findTodaysData(intensityForecast)
+  // Forecast
+  const [intensityForecast, setIntensityForecast] = useState(
+    intensity.forecast.default
+  );
+  useEffect(() => {
+    intensity.forecast.retrive(setIntensityForecast, utility);
+  }, [utility]);
+
+  const todaysForecastData = intensity.forecast.findTodaysData(
+    intensityForecast
+  );
 
   // Set Big Number
   const carbonIntensity =
-    Math.round(
-      todaysForecastData[hourIndex]?.forecast_value
-    ) || 0;
+    Math.round(todaysForecastData[hourIndex]?.forecast_value) || 0;
 
   return (
     <Container maxWidth="sm">
@@ -74,22 +80,30 @@ export default function Main() {
           utilityIndex={supportedUtilities.indexOf(utility)}
           supportedUtilities={supportedUtilities}
         />
-        <Typography
-          variant="h2"
-          component="h1"
-          gutterBottom
-          style={{
-            display: "inline-block",
-            color: carbonIntensityColor(carbonIntensity),
-          }}
-        >
-          {carbonIntensity}
-        </Typography>
-        <Typography style={{ display: "inline-block" }}>gC02/kWh</Typography>
-        <Graph 
-          monthData={dailyCarbonByMonth ?? null}
-          forecastData={todaysForecastData ?? null}
-        />
+        {carbonIntensity === 0 ? (
+          <CircularProgress />
+        ) : (
+          <div>
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
+              style={{
+                display: "inline-block",
+                color: carbonIntensityColor(carbonIntensity),
+              }}
+            >
+              {carbonIntensity}
+            </Typography>
+            <Typography style={{ display: "inline-block" }}>
+              gC02/kWh
+            </Typography>
+            <Graph
+              monthData={dailyCarbonByMonth ?? null}
+              forecastData={todaysForecastData ?? null}
+            />
+          </div>
+        )}
         <Divider variant="middle" />
         <Explanation />
       </Box>

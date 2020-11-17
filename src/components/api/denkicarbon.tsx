@@ -87,7 +87,8 @@ const createCache = () => {
  * Create API Interface
  *
  * @param endpointPath endpoint path, don't put '/' on the ends
- * @param defaultData
+ * @param defaultData the default data for useState
+ * @param unpacker basic function to unpack the data down to the main array
  *
  * @returns API calling interface
  */
@@ -98,8 +99,9 @@ function createAPIInterface<DataType>(
 ) {
   // Cache in closure
   const cache = createCache();
+
   // Return Function
-  return async (
+  const callAPI = async (
     setData: (data: DataType) => void,
     utility: Utilities
   ): Promise<void> => {
@@ -112,6 +114,13 @@ function createAPIInterface<DataType>(
     }
     const response = await fetch(`${apiURL}/${endpointPath}/${utility}`);
 
+    if (response.ok === false) {
+      console.error("API Call Failed Retrying...");
+      console.error(response);
+      setTimeout(() => callAPI(setData, utility), 2000);
+      return;
+    }
+
     const result: DataType = await response.json();
 
     const data: DataType = unpacker(result);
@@ -119,6 +128,7 @@ function createAPIInterface<DataType>(
     cache.setCache(utility, data);
     setData(data);
   };
+  return callAPI;
 }
 
 /**
