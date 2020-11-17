@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,13 +9,12 @@ import {
   Legend,
 } from "recharts";
 
-import {CarbonIntensityForecast, DailyCarbonDataByMonth} from '../api/denkicarbon'
-
 import {
-  CircularProgress,
-  Card,
-  makeStyles,
-} from "@material-ui/core";
+  CarbonIntensityForecast,
+  DailyCarbonDataByMonth,
+} from "../api/denkicarbon";
+
+import { CircularProgress, Card, makeStyles } from "@material-ui/core";
 
 import Title from "./Title";
 import useWindowDimensions from "./resize";
@@ -32,8 +31,8 @@ const useStyles = makeStyles({
 const INDUSTRY_TARGET_2030 = 370;
 
 interface GraphProps {
-  monthData: DailyCarbonDataByMonth[],
-  forecastData: CarbonIntensityForecast[]
+  monthData: DailyCarbonDataByMonth[];
+  forecastData: CarbonIntensityForecast[];
 }
 
 export default function Graph(props: GraphProps) {
@@ -59,11 +58,6 @@ export default function Graph(props: GraphProps) {
       type: "line",
       name: String(t("graph.forecast")),
     },
-    compare: {
-      color: "red",
-      type: "line",
-      name: String(t("graph.compareLine")),
-    },
     target: {
       color: "green",
       type: "line",
@@ -86,12 +80,6 @@ export default function Graph(props: GraphProps) {
       color: lineInfo.average.color,
     },
     {
-      value: lineInfo.compare.name,
-      id: 3,
-      type: "none",
-      color: lineInfo.compare.color,
-    },
-    {
       value: lineInfo.target.name,
       id: 4,
       type: "plainline",
@@ -107,9 +95,8 @@ export default function Graph(props: GraphProps) {
     return <CircularProgress />;
   }
 
-  
-  let data = props.monthData[month].data
-  
+  let data = props.monthData[monthChoice].data;
+
   data = data.map((dp: any, i: number) => {
     // Add 2030 target
     const newDP: any = {
@@ -118,12 +105,6 @@ export default function Graph(props: GraphProps) {
       average: dp.carbon_intensity,
       hour: dp.hour,
     };
-    // Add Comparison Data to chart and legend, if we have it
-    if (monthChoice !== month) {
-      const comparisonData = props.monthData?.[monthChoice].data
-      newDP.comparison = comparisonData?.[i].carbon_intensity;
-      legendPayload[1].type = "line";
-    }
 
     return newDP;
   });
@@ -147,12 +128,6 @@ export default function Graph(props: GraphProps) {
         type="monotone"
         dataKey="forecast"
         stroke={lineInfo.forecast.color}
-      />
-      <Line
-        name={lineInfo.compare.name}
-        type="monotone"
-        dataKey="comparison"
-        stroke={lineInfo.compare.color}
       />
       <Line
         name={lineInfo.target.name}
@@ -180,10 +155,7 @@ export default function Graph(props: GraphProps) {
 
   return (
     <Card className={classes.graphCard}>
-      <Title
-        setMonthChoice={setMonthChoice}
-        monthChoice={monthChoice}
-      />
+      <Title setMonthChoice={setMonthChoice} monthChoice={monthChoice} />
       <br />
       {renderLineChart}
     </Card>

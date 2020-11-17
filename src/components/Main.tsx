@@ -37,7 +37,6 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
 export default function Main() {
   const date = new Date();
   const hourIndex = date.getHours();
-  const month: number = date.getMonth() + 1;
 
   // Utility Choice
   const [utility, setUtility] = useState(supportedUtilities[0]);
