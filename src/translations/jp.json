@@ -69,7 +69,7 @@
     },
     "useSection": {
       "title": "データを使ってはいいですか?",
-      "docsLink": "もちろん! APIの説明書はここだ： <docsLink>docs.denkicarbon.jp</docsLink>."
+      "docsLink": "もちろん! APIの説明書はここだ： <docsLink>リンク</docsLink>."
     },
     "helpSection": {
       "title": "手伝いましょうか？",
