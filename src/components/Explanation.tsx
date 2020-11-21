@@ -88,6 +88,9 @@ export default function Explanation() {
               webLink: transLink(
                 "https://github.com/FraserTooth/japan_grid_carbon_api_website"
               ),
+              slackLink: transLink(
+                "https://join.slack.com/t/denkicarbon/shared_invite/zt-jgof0fyc-9lTEgKFL5B3P229aZtndfg"
+              ),
             }}
           />
         </Typography>

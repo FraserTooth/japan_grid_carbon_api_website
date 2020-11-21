@@ -73,7 +73,7 @@
     },
     "helpSection": {
       "title": "How can I help?",
-      "repoLink": "You can contribute technically through Github at our <apiLink>API Repository</apiLink> or <webLink>Website Repository</webLink>",
+      "repoLink": "You can contribute technically through Github at our <apiLink>API Repository</apiLink> or <webLink>Website Repository</webLink>. Also, do join our <slackLink>Slack Community</slackLink> and join the discussion!",
       "sponsor": "If you are interested in sponsoring this project, please <contactLink>Get In Touch</contactLink>"
     }
   }

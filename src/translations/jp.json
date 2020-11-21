@@ -73,7 +73,7 @@
     },
     "helpSection": {
       "title": "手伝いましょうか？",
-      "repoLink": "プログラマーだったら、GitHubを見にきてください。 ‐ <apiLink>API Repository</apiLink> 及び <webLink>Website Repository</webLink>",
+      "repoLink": "プログラマーだったら、GitHubを見にきてください。 ‐ <apiLink>API Repository</apiLink> 及び <webLink>Website Repository</webLink>.  それに、私たちの<slackLink>Slack Community</slackLink>参加してください！",
       "sponsor": "このプロジェクトのスポンサーにご興味のある方は<contactLink>こちら</contactLink>からご連絡ください。"
     }
   }
