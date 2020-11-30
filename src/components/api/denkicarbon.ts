@@ -1,18 +1,18 @@
 const apiURL = process.env.REACT_APP_API_URL;
 console.log("API URL: ", apiURL);
 
-export enum Utilities {
-  Tepco = "tepco",
-  Kepco = "kepco",
-  Tohokuden = "tohokuden",
-  Chuden = "chuden",
-  Hepco = "hepco",
-  Rikuden = "rikuden",
-  Cepco = "cepco",
-  Yonden = "yonden",
-  Kyuden = "kyuden",
-  Okiden = "okiden",
-}
+export type Utilities =
+   "tepco" |
+   "kepco" |
+   "tohokuden" |
+   "chuden" |
+   "hepco" |
+   "rikuden" |
+   "cepco" |
+   "yonden" |
+   "kyuden" |
+   "okiden" 
+
 
 export interface DailyCarbonData {
   hour: number;
@@ -56,13 +56,21 @@ const defaultCarbonIntensityForecast: CarbonIntensityForecast[] = [
   },
 ];
 
+
 /**
  * Generate Cache for Local Browser to prevent API overuse
  *
  * @returns Object containing getter and setter functions
  */
-const createCache = () => {
-  const cache: any = {};
+const createCache = <StoredDataType>() => {
+
+  type Cache = {
+    [K in Utilities]?: StoredDataType
+  }
+
+  const cache: Cache = {}
+
+  // const cache = {};
 
   /**
    * Get Cache Data for Utility
@@ -70,7 +78,7 @@ const createCache = () => {
    * @param utility Utility Name
    * @returns Cached Data
    */
-  const getCache = (utility: Utilities): any => cache[utility];
+  const getCache = (utility: Utilities): StoredDataType|undefined => cache[utility];
 
   /**
    * Sets Cache Data for Utility
@@ -78,8 +86,9 @@ const createCache = () => {
    * @param utility Utility Name
    * @param data Cached Data
    */
-  const setCache = (utility: Utilities, data: any): void =>
-    (cache[utility] = data);
+  const setCache = (utility: Utilities, data: StoredDataType): void => {
+    (cache[utility] = data)
+  }
   return { getCache, setCache };
 };
 
@@ -98,7 +107,7 @@ function createAPIInterface<DataType>(
   unpacker: (raw: any) => DataType = (raw) => raw
 ) {
   // Cache in closure
-  const cache = createCache();
+  const cache = createCache<DataType>();
 
   // Return Function
   const callAPI = async (
