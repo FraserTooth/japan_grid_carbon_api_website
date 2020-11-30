@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
-import intensity, { Utilities } from "./api/denkicarbon";
+import intensity, { supportedUtilities } from "./api/denkicarbon";
 import LocationUtils from "./api/location";
+import moment from "moment";
 
 import {
   Box,
@@ -13,19 +14,6 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 
-const supportedUtilities: Utilities[] = [
-  Utilities.Tepco,
-  Utilities.Kepco,
-  Utilities.Tohokuden,
-  Utilities.Chuden,
-  Utilities.Hepco,
-  Utilities.Rikuden,
-  Utilities.Cepco,
-  Utilities.Yonden,
-  Utilities.Kyuden,
-  Utilities.Okiden,
-];
-
 const carbonIntensityColor = (carbonIntensity: number): string => {
   const maxIntensity = 900;
   const hueCalc = 100 - Math.floor((carbonIntensity / maxIntensity) * 100);
@@ -33,6 +21,7 @@ const carbonIntensityColor = (carbonIntensity: number): string => {
   console.log(`hsl(${hue},100%,100%)`);
   return `hsl(${hue},100%,50%)`;
 };
+const todayString = moment().format("YYYY-MM-DD");
 
 export default function Main() {
   const date = new Date();
@@ -60,7 +49,12 @@ export default function Main() {
     intensity.forecast.default
   );
   useEffect(() => {
-    intensity.forecast.retrive(setIntensityForecast, utility);
+    intensity.forecast.retrive(
+      setIntensityForecast,
+      utility,
+      todayString,
+      todayString
+    );
   }, [utility]);
 
   const todaysForecastData = intensity.forecast.findTodaysData(
