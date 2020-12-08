@@ -135,7 +135,7 @@ function createAPIInterface<DataType, PathFormat>(
     if (response.ok === false) {
       console.error("API Call Failed Retrying...");
       console.error(response);
-      setTimeout(() => callAPI(setData, utility), 2000);
+      setTimeout(() => callAPI(setData, utility, ...restOfPathVariables), 2000);
       return;
     }
 
