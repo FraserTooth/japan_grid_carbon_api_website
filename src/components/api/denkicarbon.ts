@@ -1,18 +1,20 @@
 const apiURL = process.env.REACT_APP_API_URL;
 console.log("API URL: ", apiURL);
 
-export enum Utilities {
-  Tepco = "tepco",
-  Kepco = "kepco",
-  Tohokuden = "tohokuden",
-  Chuden = "chuden",
-  Hepco = "hepco",
-  Rikuden = "rikuden",
-  Cepco = "cepco",
-  Yonden = "yonden",
-  Kyuden = "kyuden",
-  Okiden = "okiden",
-}
+export const supportedUtilities = [
+  "tepco",
+  "kepco",
+  "tohokuden",
+  "chuden",
+  "hepco",
+  "rikuden",
+  "cepco",
+  "yonden",
+  "kyuden",
+  "okiden",
+] as const;
+
+export type Utilities = typeof supportedUtilities[number];
 
 export interface DailyCarbonData {
   hour: number;
@@ -42,6 +44,7 @@ export interface CarbonIntensityForecast {
   prediction_interval_upper_bound: number;
   confidence_interval_lower_bound: number;
   confidence_interval_upper_bound: number;
+  date_created: string;
 }
 const defaultCarbonIntensityForecast: CarbonIntensityForecast[] = [
   {
@@ -53,6 +56,7 @@ const defaultCarbonIntensityForecast: CarbonIntensityForecast[] = [
     prediction_interval_upper_bound: 1,
     confidence_interval_lower_bound: 1,
     confidence_interval_upper_bound: 1,
+    date_created: "2020-01-01 00:00:00+00:00",
   },
 ];
 
@@ -61,8 +65,14 @@ const defaultCarbonIntensityForecast: CarbonIntensityForecast[] = [
  *
  * @returns Object containing getter and setter functions
  */
-const createCache = () => {
-  const cache: any = {};
+const createCache = <StoredDataType>() => {
+  type Cache = {
+    [K in Utilities]?: StoredDataType;
+  };
+
+  const cache: Cache = {};
+
+  // const cache = {};
 
   /**
    * Get Cache Data for Utility
@@ -70,7 +80,8 @@ const createCache = () => {
    * @param utility Utility Name
    * @returns Cached Data
    */
-  const getCache = (utility: Utilities): any => cache[utility];
+  const getCache = (utility: Utilities): StoredDataType | undefined =>
+    cache[utility];
 
   /**
    * Sets Cache Data for Utility
@@ -78,8 +89,9 @@ const createCache = () => {
    * @param utility Utility Name
    * @param data Cached Data
    */
-  const setCache = (utility: Utilities, data: any): void =>
-    (cache[utility] = data);
+  const setCache = (utility: Utilities, data: StoredDataType): void => {
+    cache[utility] = data;
+  };
   return { getCache, setCache };
 };
 
@@ -92,18 +104,19 @@ const createCache = () => {
  *
  * @returns API calling interface
  */
-function createAPIInterface<DataType>(
-  endpointPath: string,
+function createAPIInterface<DataType, PathFormat>(
   defaultData: DataType,
-  unpacker: (raw: any) => DataType = (raw) => raw
+  unpacker: (raw: any) => DataType = (raw) => raw,
+  endpointPath: string
 ) {
   // Cache in closure
-  const cache = createCache();
+  const cache = createCache<DataType>();
 
   // Return Function
   const callAPI = async (
     setData: (data: DataType) => void,
-    utility: Utilities
+    utility: Utilities,
+    ...restOfPathVariables: PathFormat[]
   ): Promise<void> => {
     setData(defaultData);
 
@@ -112,7 +125,12 @@ function createAPIInterface<DataType>(
       console.log(`Got ${endpointPath} for ${utility} from Local Cache`);
       return setData(cacheData);
     }
-    const response = await fetch(`${apiURL}/${endpointPath}/${utility}`);
+
+    const requestURL = restOfPathVariables.reduce(
+      (fullPath, currentVar) => `${fullPath}/${currentVar}`,
+      `${apiURL}/${endpointPath}/${utility}`
+    );
+    const response = await fetch(requestURL);
 
     if (response.ok === false) {
       console.error("API Call Failed Retrying...");
@@ -139,10 +157,10 @@ function createAPIInterface<DataType>(
  *
  * @returns API data, from the API itself or the local cache - if the function has been run before
  */
-const retriveDailyIntensity = createAPIInterface<DailyCarbonData[]>(
-  "carbon_intensity/average",
+const retriveDailyIntensity = createAPIInterface<DailyCarbonData[], never>(
   defaultDailyCarbon,
-  (raw) => raw["data"]["carbon_intensity_average"]["data"]
+  (raw) => raw["data"]["carbon_intensity_average"]["data"],
+  "carbon_intensity/average"
 );
 
 /**
@@ -154,11 +172,12 @@ const retriveDailyIntensity = createAPIInterface<DailyCarbonData[]>(
  * @returns API data, from the API itself or the local cache - if the function has been run before
  */
 const retriveDailyIntensityByMonth = createAPIInterface<
-  DailyCarbonDataByMonth[]
+  DailyCarbonDataByMonth[],
+  never
 >(
-  "carbon_intensity/average/month",
   defaultDailyCarbonMonth,
-  (raw) => raw["data"]["carbon_intensity_average"]["data"]
+  (raw) => raw["data"]["carbon_intensity_average"]["data"],
+  "carbon_intensity/average/month"
 );
 
 /**
@@ -166,13 +185,15 @@ const retriveDailyIntensityByMonth = createAPIInterface<
  *
  * @param setData Function to setData given by useState
  * @param utility Utility Name
+ * @param fromDate From Date in format YYYY-MM-DD
+ * @param toDate To Date in format YYYY-MM-DD
  *
  * @returns API data, from the API itself or the local cache - if the function has been run before
  */
-const retriveForecast = createAPIInterface<CarbonIntensityForecast[]>(
-  "carbon_intensity/forecast",
+const retriveForecast = createAPIInterface<CarbonIntensityForecast[], string>(
   defaultCarbonIntensityForecast,
-  (raw) => raw["data"]["forecast"]
+  (raw) => raw["data"]["forecast"],
+  `carbon_intensity/forecast`
 );
 
 /**

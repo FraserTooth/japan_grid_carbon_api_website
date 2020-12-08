@@ -52,7 +52,9 @@ export default function Explanation() {
           <Trans
             i18nKey="explanation.howSection.carbonIntensityLink"
             components={{
-              carbonLink: transLink("https://carbonintensity.org.uk/"),
+              carbonLink: transLink(
+                "https://criepi.denken.or.jp/jp/kenkikaku/report/detail/Y06.html"
+              ),
             }}
           />
         </Typography>
