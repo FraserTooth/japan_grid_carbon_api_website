@@ -29,8 +29,10 @@ export default function Explanation() {
     const sectionArray: any = t(key, {
       returnObjects: true,
     });
-    return sectionArray.map((line: string) => (
-      <Typography className={classes.textBlock}>{line}</Typography>
+    return sectionArray.map((line: string, index: number) => (
+      <Typography key={`${key}-line-${index}`} className={classes.textBlock}>
+        {line}
+      </Typography>
     ));
   };
 
