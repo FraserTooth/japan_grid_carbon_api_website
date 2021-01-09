@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import LocationUtils from "./api/location";
 import { useTranslation, Trans } from "react-i18next";
 
 import {
@@ -27,6 +27,9 @@ export default function Title(props: any) {
 
   const supportedUtilities = props.supportedUtilities;
 
+  // Add Location Based Guess to Utilties Menu
+  const utilitiesMenu = [...supportedUtilities, "location"];
+
   const [utilityChoice, setUtilityChoice] = useState(props.utilityIndex);
 
   useEffect(() => {
@@ -39,14 +42,33 @@ export default function Title(props: any) {
     event: React.ChangeEvent<{ name?: string; value: string }>
   ) => {
     const choice = parseInt(event.target.value);
-    setUtilityChoice(choice);
-    props.updateUtility(supportedUtilities[choice]);
+    // If Use Location Selected
+    if (choice >= supportedUtilities.length) {
+      console.log("Using Location to Guess Utility");
+      LocationUtils.fetchUtilityBasedOnGeolocation(
+        LocationUtils.utilityGeocoordinates,
+        props.updateUtility
+      );
+    } else {
+      setUtilityChoice(choice);
+      props.updateUtility(supportedUtilities[choice]);
+    }
   };
 
   const utilityMenu = (
     <NativeSelect value={utilityChoice} onChange={handleChange}>
-      {supportedUtilities.map((utility: string, index: number) => {
-        return <option value={index}>{t(`utilities.${utility}`)}</option>;
+      {utilitiesMenu.map((utility: string, index: number) => {
+        if (utility === "location")
+          return (
+            <option key={`utilityMenu-${index}`} value={index}>
+              {t(`location.utilityMenu`)}
+            </option>
+          );
+        return (
+          <option key={`utilityMenu${index}`} value={index}>
+            {t(`utilities.${utility}`)}
+          </option>
+        );
       })}
     </NativeSelect>
   );

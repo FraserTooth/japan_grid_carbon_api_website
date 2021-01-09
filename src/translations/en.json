@@ -35,6 +35,9 @@
     "kyuden": "Kyuden",
     "okiden": "Okiden"
   },
+  "location": {
+    "utilityMenu": "(Use Location)"
+  },
   "graph": {
     "average": "Average",
     "compare": "Compared Month",

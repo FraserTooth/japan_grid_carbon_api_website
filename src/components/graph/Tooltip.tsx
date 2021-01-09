@@ -31,9 +31,14 @@ export default function CustomTooltip({ payload, label, active }: any) {
   if (active) {
     const dp = payload[0].payload;
 
-    const dataBit = (data: any, label: string, color: string) => {
+    const dataBit = (
+      data: any,
+      label: string,
+      color: string,
+      index: number
+    ) => {
       return data ? (
-        <div>
+        <div key={`tooltip-${index}`}>
           <div style={{ color, display: "inline-block" }}>{label}</div>
           {": "}
           <Typography
@@ -53,11 +58,12 @@ export default function CustomTooltip({ payload, label, active }: any) {
 
     const lines = payload
       .filter((line: any) => ["average", "forecast"].includes(line.dataKey))
-      .map((line: any) => {
+      .map((line: any, index: number) => {
         return dataBit(
           dp[line.dataKey],
           t(`graph.${line.dataKey}`),
-          line.stroke
+          line.stroke,
+          index
         );
       });
 

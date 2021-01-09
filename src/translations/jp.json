@@ -35,6 +35,9 @@
     "kyuden": "九州電力",
     "okiden": "沖縄電力"
   },
+  "location": {
+    "utilityMenu": "(現在地)"
+  },
   "graph": {
     "average": "平均",
     "compare": "比較月",
