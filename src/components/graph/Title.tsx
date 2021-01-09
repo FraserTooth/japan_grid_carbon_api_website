@@ -37,7 +37,11 @@ export default function Title(props: any) {
     <NativeSelect value={props.monthChoice} onChange={handleChangeMonth}>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
         (month: number, index: number) => {
-          return <option value={index}>{t(`months.${month}`)}</option>;
+          return (
+            <option key={`monthChoice-${index}`} value={index}>
+              {t(`months.${month}`)}
+            </option>
+          );
         }
       )}
     </NativeSelect>

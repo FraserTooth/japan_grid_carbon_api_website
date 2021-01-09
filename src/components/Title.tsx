@@ -59,8 +59,16 @@ export default function Title(props: any) {
     <NativeSelect value={utilityChoice} onChange={handleChange}>
       {utilitiesMenu.map((utility: string, index: number) => {
         if (utility === "location")
-          return <option value={index}>{t(`location.utilityMenu`)}</option>;
-        return <option value={index}>{t(`utilities.${utility}`)}</option>;
+          return (
+            <option key={`utilityMenu-${index}`} value={index}>
+              {t(`location.utilityMenu`)}
+            </option>
+          );
+        return (
+          <option key={`utilityMenu${index}`} value={index}>
+            {t(`utilities.${utility}`)}
+          </option>
+        );
       })}
     </NativeSelect>
   );
