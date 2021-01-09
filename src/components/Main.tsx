@@ -3,7 +3,6 @@ import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
 import intensity, { supportedUtilities } from "./api/denkicarbon";
-import LocationUtils from "./api/location";
 import moment from "moment";
 
 import {
@@ -29,12 +28,6 @@ export default function Main() {
 
   // Utility Choice
   const [utility, setUtility] = useState(supportedUtilities[0]);
-  useEffect(() => {
-    LocationUtils.fetchUtilityBasedOnGeolocation(
-      LocationUtils.utilityGeocoordinates,
-      setUtility
-    );
-  }, []);
 
   // Monthly Data
   const [dailyCarbonByMonth, setDailyCarbonByMonth] = useState(

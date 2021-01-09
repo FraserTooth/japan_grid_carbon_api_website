@@ -99,6 +99,7 @@ const fetchUtilityBasedOnUsersGeolocation = (utilityGeocoordinatesMap: any, setU
               };
 
               const nearestUtility = fetchNearestUtility(utilityGeocoordinatesMap, userLatLong);
+              console.log(`Nearest Utility Determined to be: ${nearestUtility}`)
               if(nearestUtility) {
                   setUtility(nearestUtility);
               }
