@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Graph from "./graph/Graph";
 import Explanation from "./Explanation";
 import Title from "./Title";
+import Social from "./Social";
 import intensity, { supportedUtilities } from "./api/denkicarbon";
 import moment from "moment";
 
@@ -90,6 +91,7 @@ export default function Main() {
             />
           </div>
         )}
+        <Social />
         <Divider variant="middle" />
         <Explanation />
       </Box>

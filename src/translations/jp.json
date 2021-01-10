@@ -38,6 +38,9 @@
   "location": {
     "utilityMenu": "(現在地)"
   },
+  "social": {
+    "twitter": "Check out the carbon intensity in Tokyo"
+  },
   "graph": {
     "average": "平均",
     "compare": "比較月",

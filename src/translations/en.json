@@ -38,6 +38,9 @@
   "location": {
     "utilityMenu": "(Use Location)"
   },
+  "social": {
+    "twitter": "Check out the carbon intensity in Tokyo"
+  },
   "graph": {
     "average": "Average",
     "compare": "Compared Month",
