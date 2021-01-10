@@ -91,7 +91,7 @@ export default function Main() {
             />
           </div>
         )}
-        <Social />
+        <Social carbonIntensity={carbonIntensity} utility={utility} />
         <Divider variant="middle" />
         <Explanation />
       </Box>

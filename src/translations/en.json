@@ -39,7 +39,8 @@
     "utilityMenu": "(Use Location)"
   },
   "social": {
-    "twitter": "Check out the carbon intensity in Tokyo"
+    "hashtags": ["denkicarbon", "greenpower"],
+    "twitter": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh"
   },
   "graph": {
     "average": "Average",
