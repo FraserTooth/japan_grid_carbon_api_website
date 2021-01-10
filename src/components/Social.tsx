@@ -21,6 +21,9 @@ const useStyles = makeStyles({
     marginTop: "10px",
     marginBottom: "10px",
   },
+  icons: {
+    marginRight: "5px",
+  },
 });
 
 export default function Social(props: SocialProps) {
@@ -35,12 +38,29 @@ export default function Social(props: SocialProps) {
   return (
     <Box className={classes.socialBlock}>
       <TwitterShareButton
+        className={classes.icons}
         url="https://www.denkicarbon.jp"
         title={t("social.twitter", { utility, carbonIntensity })}
         hashtags={hashtags}
       >
         <TwitterIcon size={32} round={true} />
       </TwitterShareButton>
+      <FacebookShareButton
+        className={classes.icons}
+        url="https://www.denkicarbon.jp"
+        quote={t("social.facebook", { utility, carbonIntensity })}
+        hashtag={hashtags[0]}
+      >
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>
+      <LinkedinShareButton
+        className={classes.icons}
+        url="https://www.denkicarbon.jp"
+        title="Denki Carbon"
+        summary={t("social.linkedin", { utility, carbonIntensity })}
+      >
+        <LinkedinIcon size={32} round={true} />
+      </LinkedinShareButton>
     </Box>
   );
 }

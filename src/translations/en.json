@@ -40,7 +40,9 @@
   },
   "social": {
     "hashtags": ["denkicarbon", "greenpower"],
-    "twitter": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh"
+    "twitter": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
+    "facebook": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
+    "linkedin": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh"
   },
   "graph": {
     "average": "Average",
