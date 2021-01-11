@@ -38,6 +38,8 @@ export default function Social(props: SocialProps) {
   return (
     <Box className={classes.socialBlock}>
       <TwitterShareButton
+        disabled={carbonIntensity === 0}
+        disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
         url="https://www.denkicarbon.jp"
         title={t("social.twitter", { utility, carbonIntensity })}
@@ -46,6 +48,8 @@ export default function Social(props: SocialProps) {
         <TwitterIcon size={32} round={true} />
       </TwitterShareButton>
       <FacebookShareButton
+        disabled={carbonIntensity === 0}
+        disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
         url="https://www.denkicarbon.jp"
         quote={t("social.facebook", { utility, carbonIntensity })}
@@ -54,6 +58,8 @@ export default function Social(props: SocialProps) {
         <FacebookIcon size={32} round={true} />
       </FacebookShareButton>
       <LinkedinShareButton
+        disabled={carbonIntensity === 0}
+        disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
         url="https://www.denkicarbon.jp"
         title="Denki Carbon"
