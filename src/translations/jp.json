@@ -38,6 +38,12 @@
   "location": {
     "utilityMenu": "(現在地)"
   },
+  "social": {
+    "hashtags": ["renewableenergy", "climateaction", "netzero"],
+    "twitter": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
+    "facebook": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
+    "linkedin": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh"
+  },
   "graph": {
     "average": "平均",
     "compare": "比較月",
