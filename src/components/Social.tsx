@@ -35,13 +35,15 @@ export default function Social(props: SocialProps) {
   const utility = t(`utilities.${props.utility}`);
   const hashtags: string[] = t("social.hashtags", { returnObjects: true });
 
+  const url = "denkicarbon.jp";
+
   return (
     <Box className={classes.socialBlock}>
       <TwitterShareButton
         disabled={carbonIntensity === 0}
         disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
-        url="https://www.denkicarbon.jp"
+        url={url}
         title={t("social.twitter", { utility, carbonIntensity })}
         hashtags={hashtags}
       >
@@ -51,7 +53,7 @@ export default function Social(props: SocialProps) {
         disabled={carbonIntensity === 0}
         disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
-        url="https://www.denkicarbon.jp"
+        url={url}
         quote={t("social.facebook", { utility, carbonIntensity })}
         hashtag={hashtags[0]}
       >
@@ -61,7 +63,7 @@ export default function Social(props: SocialProps) {
         disabled={carbonIntensity === 0}
         disabledStyle={{ opacity: 0.2 }}
         className={classes.icons}
-        url="https://www.denkicarbon.jp"
+        url={url}
         title="Denki Carbon"
         summary={t("social.linkedin", { utility, carbonIntensity })}
       >
