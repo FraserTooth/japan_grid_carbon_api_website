@@ -39,10 +39,10 @@
     "utilityMenu": "(Use Location)"
   },
   "social": {
-    "hashtags": ["denkicarbon", "greenpower"],
-    "twitter": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
-    "facebook": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
-    "linkedin": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh"
+    "hashtags": ["renewableenergy", "climateaction", "netzero", "japan"],
+    "twitter": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gC02/kWh",
+    "facebook": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gC02/kWh",
+    "linkedin": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gC02/kWh"
   },
   "graph": {
     "average": "Average",

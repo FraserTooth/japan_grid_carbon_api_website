@@ -39,10 +39,10 @@
     "utilityMenu": "(現在地)"
   },
   "social": {
-    "hashtags": ["denkicarbon", "greenpower"],
-    "twitter": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
-    "facebook": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh",
-    "linkedin": "The carbon intensity in the {{utility}} region is currently {{carbonIntensity}}gC02/kWh"
+    "hashtags": ["renewableenergy", "climateaction", "netzero"],
+    "twitter": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
+    "facebook": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
+    "linkedin": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh"
   },
   "graph": {
     "average": "平均",
