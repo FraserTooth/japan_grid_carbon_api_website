@@ -93,7 +93,7 @@ export default function Explanation() {
                 "https://github.com/FraserTooth/japan_grid_carbon_api_website"
               ),
               slackLink: transLink(
-                "https://join.slack.com/t/denkicarbon/shared_invite/zt-k7h5yrbq-hp5npyR~dNUYRvJqFSp9rw"
+                "https://join.slack.com/t/denkicarbon/shared_invite/zt-n2eme5ee-cKagN29wusOmXOgNP81g_w"
               ),
             }}
           />
