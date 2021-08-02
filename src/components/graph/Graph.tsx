@@ -145,7 +145,7 @@ export default function Graph(props: GraphProps) {
         interval="preserveStartEnd"
       />
       <YAxis
-        label={{ value: "gCO2/kWh", angle: -90, position: "insideLeft" }}
+        label={{ value: "gCO₂/kWh", angle: -90, position: "insideLeft" }}
         domain={[0, 900]}
       />
       <Tooltip content={<CustomTooltip />} />

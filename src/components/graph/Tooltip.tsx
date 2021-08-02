@@ -49,7 +49,7 @@ export default function CustomTooltip({ payload, label, active }: any) {
           >
             {Math.round(data)}
           </Typography>
-          gCO2/kWh
+          gCO₂/kWh
         </div>
       ) : (
         <div></div>

@@ -83,7 +83,7 @@ export default function Main() {
               {carbonIntensity}
             </Typography>
             <Typography style={{ display: "inline-block" }}>
-              gCO2/kWh
+              gCO₂/kWh
             </Typography>
             <Graph
               monthData={dailyCarbonByMonth ?? null}
