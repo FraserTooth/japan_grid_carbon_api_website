@@ -1,5 +1,5 @@
 {
-  "theCarbonIs": "The CO2 emitted from Electricity Generation supplied by <utilityMenu></utilityMenu> right now is (probably):",
+  "theCarbonIs": "The CO&#8322; emitted from Electricity Generation supplied by <utilityMenu></utilityMenu> right now is (probably):",
   "months": [
     "January",
     "February",
@@ -40,9 +40,9 @@
   },
   "social": {
     "hashtags": ["renewableenergy", "climateaction", "netzero", "japan"],
-    "twitter": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO2/kWh",
-    "facebook": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO2/kWh",
-    "linkedin": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO2/kWh"
+    "twitter": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO&#8322;/kWh",
+    "facebook": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO&#8322;/kWh",
+    "linkedin": "The carbon intensity in the {{utility}} supply area is currently {{carbonIntensity}}gCO&#8322;/kWh"
   },
   "graph": {
     "average": "Average",
@@ -68,7 +68,7 @@
       "title": "How is the Carbon Intensity Calculated?",
       "paragraph": [
         "The carbon intensity is calculated for a given period by figuring out the proportion of energy generation that came from each fuel type.",
-        "This proportion is then multiplied by the Carbon Intensity for that fuel type, for example, the carbon intensity factor for coal is 937 gCO2/kWh with Combined Cycle Gas Turbines (CCGT) having a factor of 394 gCO2/kWh.",
+        "This proportion is then multiplied by the Carbon Intensity for that fuel type, for example, the carbon intensity factor for coal is 937 gCO&#8322;/kWh with Combined Cycle Gas Turbines (CCGT) having a factor of 394 gCO&#8322;/kWh.",
         "This isn't perfect, as each generating plant is likely to have a different carbon intensity factor, which changes over the course of the year.",
         "Even more troublesome, the data used by this tool - which is provided by Japanese utility companies - considers all Fossil Fuels under one heading 'Thermal Generation', so with the data, we cannot tell what kinds of fuel were being burned during that period.",
         "Currently, we use other reporting and sources to try and figure out the average contribution of each fuel source.",
