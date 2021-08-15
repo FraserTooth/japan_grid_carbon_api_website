@@ -1,5 +1,5 @@
 {
-  "theCarbonIs": "今現在 <utilityMenu></utilityMenu> の発電所から排出されているC02の量は(推定値):",
+  "theCarbonIs": "今現在 <utilityMenu></utilityMenu> の発電所から排出されているCO₂の量は(推定値):",
   "months": [
     "1月",
     "2月",
@@ -40,9 +40,9 @@
   },
   "social": {
     "hashtags": ["renewableenergy", "climateaction", "netzero"],
-    "twitter": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
-    "facebook": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh",
-    "linkedin": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gC02/kWh"
+    "twitter": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gCO₂/kWh",
+    "facebook": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gCO₂/kWh",
+    "linkedin": "今現在{{utility}}の発電所から排出されているC02の量は{{carbonIntensity}}gCO₂/kWh"
   },
   "graph": {
     "average": "平均",
@@ -68,7 +68,7 @@
       "title": "炭素強度をどう割り出しているか？",
       "paragraph": [
         "炭素強度は、各燃料タイプから発生するエネルギー生成の割合に燃料タイプごとの炭素強度係数を乗算ことにより、特定の期間について計算されます。",
-        "例えば、石炭の炭素強度係数は394 C02/kWh、複合サイクルガスタービン（CCGT）は937 C02/kWhです。",
+        "例えば、石炭の炭素強度係数は394 gCO₂/kWh、複合サイクルガスタービン（CCGT）は937 gCO₂/kWhです。",
         "これらは完璧ではありません。各発電プラントの炭素強度係数は、年間を通じて変化する可能性が高いためです。",
         "さらに厄介なのは、電力会社が提供するこのデータは、「火力発電」という1つの見出しの下ですべて考慮しているため、その期間にどのような燃料が燃やされていたのかが分かりません。",
         "現在、私たちは他のレポートや情報源を使用して、各燃料源の平均的な寄与度を算出しています。",
