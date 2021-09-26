@@ -29,6 +29,8 @@ const useStyles = makeStyles({
 });
 
 const INDUSTRY_TARGET_2030 = 370;
+// From https://www.nationalgrideso.com/news/record-breaking-2020-becomes-greenest-year-britains-electricity
+const UK_AVERAGE_2020 = 181
 
 interface GraphProps {
   monthData: DailyCarbonDataByMonth[];
@@ -59,11 +61,17 @@ export default function Graph(props: GraphProps) {
       name: String(t("graph.forecast")),
     },
     target: {
-      color: "green",
+      color: "red",
       type: "line",
       strokeDasharray: "6 6",
       name: String(t("graph.targetLine")),
     },
+    averageUK: {
+      color: "green",
+      type: "line",
+      strokeDasharray: "6 6",
+      name: String(t("graph.averageUKLine")),
+    }
   };
 
   const legendPayload: ReadonlyArray<any> = [
@@ -88,6 +96,15 @@ export default function Graph(props: GraphProps) {
       },
       color: lineInfo.target.color,
     },
+    {
+      value: lineInfo.averageUK.name,
+      id: 5,
+      type: "plainline",
+      payload: {
+        strokeDasharray: lineInfo.averageUK.strokeDasharray,
+      },
+      color: lineInfo.averageUK.color,
+    },
   ];
 
   if (Object.keys(props.monthData).length < 12) {
@@ -98,9 +115,10 @@ export default function Graph(props: GraphProps) {
   let data = props.monthData[monthChoice].data;
 
   data = data.map((dp: any, i: number) => {
-    // Add 2030 target
+    // Add 2030 target and UK average
     const newDP: any = {
       target2030: INDUSTRY_TARGET_2030,
+      averageUK2020: UK_AVERAGE_2020,
       forecast: props.forecastData[i]?.forecast_value,
       average: dp.carbon_intensity,
       hour: dp.hour,
@@ -134,6 +152,14 @@ export default function Graph(props: GraphProps) {
         type="monotone"
         dataKey="target2030"
         stroke={lineInfo.target.color}
+        strokeDasharray="3 3"
+        dot={false}
+      />
+      <Line
+        name={lineInfo.target.name}
+        type="monotone"
+        dataKey="averageUK2020"
+        stroke={lineInfo.averageUK.color}
         strokeDasharray="3 3"
         dot={false}
       />
