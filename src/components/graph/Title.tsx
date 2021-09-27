@@ -3,24 +3,10 @@ import React from "react";
 import {
   Typography,
   NativeSelect,
-  makeStyles,
-  createStyles,
-  Theme,
 } from "@material-ui/core";
 
 import { useTranslation, Trans } from "react-i18next";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
 
 export default function Title(props: any) {
   const { t } = useTranslation();
